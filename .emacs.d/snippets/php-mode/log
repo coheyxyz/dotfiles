@@ -1,0 +1,5 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: error log
+# key: log
+# --
+error_log(var_export($1, true));$0
