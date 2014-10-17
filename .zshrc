@@ -3,8 +3,6 @@ compinit
 
 bindkey -e  # use emacs-like key bindings
 
-export LANG=ja_JP.UTF-8
-export LC_ALL=ja_JP.UTF-8
 export PATH=$PATH:/usr/local/mysql/bin
 export TERM=xterm-256color
 export EDITOR=vim
@@ -50,7 +48,7 @@ bashcompinit
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
 
 # rbenv
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+if which rbenv > /dev/null 2>&1; then eval "$(rbenv init -)"; fi
 
 # cask
 [[ -s ~/.cask ]] && export PATH="$HOME/.cask/bin:$PATH"
