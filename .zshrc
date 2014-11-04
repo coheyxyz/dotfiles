@@ -49,8 +49,8 @@ bashcompinit
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
 [[ -s ~/.cask ]] && export PATH="$HOME/.cask/bin:$PATH"
 
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-if which direnv > /dev/null; then eval "$(direnv hook zsh)"; fi
+if which rbenv > /dev/null 2>&1; then eval "$(rbenv init -)"; fi
+if which direnv > /dev/null 2>&1; then eval "$(direnv hook zsh)"; fi
 
 
 # load under ~/.zsh/
