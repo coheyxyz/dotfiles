@@ -3,17 +3,19 @@ compinit
 
 bindkey -e  # use emacs-like key bindings
 
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 export PATH=$PATH:/usr/local/mysql/bin
 export TERM=xterm-256color
 export EDITOR=vim
+export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 setopt pushd_ignore_dups
 setopt correct
 setopt nolistbeep
 setopt ignoreeof  # Don't logout with C-d
 
-# env
-export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+zstyle ':completion:*:default' menu select=2
 
 # aliases
 alias ls='ls -F'
@@ -44,14 +46,12 @@ stty stop undef  # be able to search forward with ctrl-s
 autoload bashcompinit
 bashcompinit
 
-# tmuxinator
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
-
-# rbenv
-if which rbenv > /dev/null 2>&1; then eval "$(rbenv init -)"; fi
-
-# cask
 [[ -s ~/.cask ]] && export PATH="$HOME/.cask/bin:$PATH"
+
+if which rbenv > /dev/null 2>&1; then eval "$(rbenv init -)"; fi
+if which direnv > /dev/null 2>&1; then eval "$(direnv hook zsh)"; fi
+
 
 # load under ~/.zsh/
 ZSHHOME="${HOME}/.zsh"

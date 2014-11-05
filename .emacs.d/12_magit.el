@@ -8,4 +8,5 @@
             (set-face-foreground 'magit-diff-del "#ff4040")
             (set-face-background 'magit-diff-del "#333333")
             (set-face-foreground 'magit-diff-none "#ffffff")
-            (set-face-foreground 'magit-diff-hunk-header "black")))
+            (set-face-foreground 'magit-diff-hunk-header "black"))
+  :bind ("C-c g" . magit-status))
