@@ -1,10 +1,9 @@
-# prompt
-if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
-local GREEN=$'%{\e[1;32m%}'
-local YELLOW=$'%{\e[1;33m%}'
-local BLUE=$'%{\e[1;34m%}'
-local DEFAULT=$'%{\e[m%}'
-PROMPT="$GREEN%n@%m%# $DEFAULT"
+autoload -U colors; colors
+
+setopt prompt_subst
+setopt transient_rprompt
+
+PROMPT="%{$fg_bold[green]%}%n@%m%# $DEFAULT%{$reset_color%}%b"
 RPROMPT="[%~]"
 SPROMPT="correct: %R -> %r ? "
 
