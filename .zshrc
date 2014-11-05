@@ -55,11 +55,12 @@ if which direnv > /dev/null 2>&1; then eval "$(direnv hook zsh)"; fi
 
 # load under ~/.zsh/
 ZSHHOME="${HOME}/.zsh"
-if [ -d $ZSHHOME -a -r $ZSHHOME -a -x $ZSHHOME ]; then
-  for i in $ZSHHOME/*; do
-    [[ ${i##*/} = *.sh ]] &&
-    [ \( -f $i -o -h $i \) -a -r $i ] && . $i
+if [[ -d $ZSHHOME ]]; then
+  for i in $ZSHHOME/*.sh; do
+    if [[ $i != */env.sh ]]; then
+      source $i
+    fi
   done
 fi
 
-[[ -s $HOME/.zsh/env.sh ]] && source $HOME/.zsh/env.sh
+[[ -s $ZSHHOME/env.sh ]] && source $ZSHHOME/env.sh
