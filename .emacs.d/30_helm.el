@@ -9,6 +9,7 @@
                                               helm-source-ls-git))
             (set-face-background 'helm-selection "navy"))
   :bind (("C-_" . helm-mini)
+         ("C-/" . helm-mini)
          ("M-/" . helm-resume)
          ("C-c i" . helm-imenu)
          ("C-c o" . helm-occur)
