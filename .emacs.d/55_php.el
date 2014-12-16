@@ -8,6 +8,16 @@
 (use-package php-mode
   :commands php-mode
   :config (progn
+            (setq php-imenu-generic-expression
+                  (mapcar (lambda (lst)
+                            (let ((name (car lst))
+                                  (exp (cadr lst))
+                                  (rest (cddr lst)))
+                              (setq exp (replace-regexp-in-string "function" "\\(?:async\\s-+\\)?function" exp t t))
+                              (if (string-match "function" exp)
+                                  (setq exp exp))
+                              (append `(,name) `(,exp) rest)))
+                          php-imenu-generic-expression))
             (add-hook 'php-mode-hook 'php-mode-do-not-align-arrows)))
 
 (use-package php-eldoc
