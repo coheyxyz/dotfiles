@@ -51,6 +51,13 @@
                                ,alternate
                              ,regular)))))
 
+(defvar startup-directory default-directory)
+(defun find-file-from-startup-directory ()
+  (interactive)
+  (let ((default-directory startup-directory))
+    (call-interactively 'ido-find-file)))
+(global-set-alternate (kbd "C-x C-f") 'ido-find-file 'find-file-from-startup-directory)
+
 (global-set-alternate (kbd "M-%") 'query-replace 'query-replace-regexp)
 
 
@@ -126,7 +133,8 @@
 (use-package popwin
   :init (popwin-mode 1)
   :config (progn (setq popwin:special-display-config
-                       '((" *auto-async-byte-compile*" :noselect t)))
+                       '((" *auto-async-byte-compile*" :noselect t)
+                         ("*grep*")))
                  (global-set-key (kbd "C-c p") popwin:keymap)))
 
 (use-package recentf
