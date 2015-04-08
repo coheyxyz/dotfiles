@@ -20,8 +20,6 @@
 ;;
 
 (global-set-key (kbd "C-x C-b") 'buffer-menu)
-(global-unset-key (kbd "C-x C-z"))
-(global-set-key (kbd "C-x C-z z") 'suspend-frame)
 (global-set-key (kbd "C-i") 'indent-for-tab-command)
 (global-set-key (kbd "C-m") 'newline-and-indent)
 (global-set-key (kbd "C-t") 'other-window)
@@ -35,13 +33,14 @@
     (move-beginning-of-line 1)))
 (global-set-key (kbd "C-a") 'move-bol-or-indent)
 
-(defun kill-region-or-backward-word ()
+(defun kill-region-or-delete-backward-word ()
   (interactive)
   (if (or (not transient-mark-mode)
            mark-active)
       (kill-region (region-beginning) (region-end))
-    (backward-kill-word 1)))
-(global-set-key (kbd "C-w") 'kill-region-or-backward-word)
+    (delete-region (point)
+                   (progn (backward-word) (point)))))
+(global-set-key (kbd "C-w") 'kill-region-or-delete-backward-word)
 
 (defmacro global-set-alternate (key regular alternate)
   `(global-set-key ,key (lambda (prefix)
@@ -56,13 +55,19 @@
   (interactive)
   (let ((default-directory startup-directory))
     (call-interactively 'ido-find-file)))
-(global-set-alternate (kbd "C-x C-f") 'ido-find-file 'find-file-from-startup-directory)
+(global-set-alternate (kbd "C-x C-f")
+                      'ido-find-file
+                      'find-file-from-startup-directory)
 
-(global-set-alternate (kbd "C-x C-c")
-                      (lambda ()
-                        (interactive)
-                        (message "Prefix C-u"))
-                      'save-buffers-kill-terminal)
+(defmacro require-prefix-to-execute (key command)
+  `(global-set-alternate ,key
+                         (lambda ()
+                           (interactive)
+                           (message "Please prefix C-u to execute the command"))
+                         ,command))
+(require-prefix-to-execute (kbd "C-x C-c") 'save-buffers-kill-terminal)
+(require-prefix-to-execute (kbd "C-x C-z") 'suspend-frame)
+
 (global-set-alternate (kbd "M-%") 'query-replace 'query-replace-regexp)
 
 
