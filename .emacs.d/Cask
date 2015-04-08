@@ -2,6 +2,7 @@
 (source melpa)
 (source marmalade)
 
+(depends-on "ace-jump-mode")
 (depends-on "auto-async-byte-compile")
 (depends-on "auto-complete")
 (depends-on "autopair")

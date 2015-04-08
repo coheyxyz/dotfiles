@@ -58,6 +58,11 @@
     (call-interactively 'ido-find-file)))
 (global-set-alternate (kbd "C-x C-f") 'ido-find-file 'find-file-from-startup-directory)
 
+(global-set-alternate (kbd "C-x C-c")
+                      (lambda ()
+                        (interactive)
+                        (message "Prefix C-u"))
+                      'save-buffers-kill-terminal)
 (global-set-alternate (kbd "M-%") 'query-replace 'query-replace-regexp)
 
 
@@ -85,6 +90,9 @@
 ;;
 
 (require 'use-package)
+
+(use-package ace-jump-mode
+  :bind ("C-c SPC" . ace-jump-mode))
 
 (use-package auto-complete-config
   :init (ac-config-default)
@@ -123,8 +131,8 @@
 
 (use-package git-gutter
   :init (global-git-gutter-mode 1)
-  :bind (("M-p" . git-gutter:previous-hunk)
-         ("M-n" . git-gutter:next-hunk)))
+  :bind (("C-x p" . git-gutter:previous-hunk)
+         ("C-x n" . git-gutter:next-hunk)))
 
 (use-package open-junk-file
   :commands open-junk-file
