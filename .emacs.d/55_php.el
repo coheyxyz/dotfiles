@@ -27,4 +27,6 @@
             '(eldoc-add-command "c-electric-paren"))
           (add-hook 'php-mode-hook 'php-eldoc-enable)))
 
+(setq ac-modes (cons 'xhp-mode ac-modes))
+
 (use-package geben)

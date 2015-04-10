@@ -97,27 +97,29 @@
 (require 'use-package)
 
 (use-package ace-jump-mode
-  :bind ("C-c SPC" . ace-jump-mode))
+  :bind ("C-." . ace-jump-mode))
 
 (use-package auto-complete-config
-  :init (ac-config-default)
   :config (progn
+            (ac-config-default)
             (setq ac-auto-start 2
                   ac-use-menu-map t)
             (add-to-list 'ac-non-trigger-commands 'c-electric-delete-forward)))
 
 (use-package autopair
-  :init (autopair-global-mode))
+  :config (autopair-global-mode))
 
 (use-package cua-base
-  :init (cua-mode t)
-  :config (setq cua-enable-cua-keys nil)
+  :config (progn
+            (cua-mode t)
+            (setq cua-enable-cua-keys nil))
   :bind ("M-SPC" . cua-set-rectangle-mark))
 
 (use-package expand-region
   :commands er/expand-region)
 
 (use-package flycheck
+  :defer t
   :init (progn
           (add-hook 'after-init-hook 'global-flycheck-mode))
   :config (progn
@@ -126,16 +128,17 @@
             (set-face-foreground 'flycheck-error "red")))
 
 (use-package hl-line
-  :init (global-hl-line-mode 1)
-  :config (setq hl-line-face 'underline))
+  :config (progn
+            (global-hl-line-mode 1)
+            (setq hl-line-face 'underline)))
 
 (use-package ido
-  :init (progn
+  :config (progn
           (ido-mode t)
           (ido-everywhere t)))
 
 (use-package git-gutter
-  :init (global-git-gutter-mode 1)
+  :config (global-git-gutter-mode 1)
   :bind (("C-x p" . git-gutter:previous-hunk)
          ("C-x n" . git-gutter:next-hunk)))
 
@@ -144,15 +147,16 @@
   :config (setq open-junk-file-format "~/junk/%Y%m%d-%H%M%S."))
 
 (use-package popwin
-  :init (popwin-mode 1)
-  :config (progn (setq popwin:special-display-config
-                       '((" *auto-async-byte-compile*" :noselect t)
-                         ("*grep*")))
-                 (global-set-key (kbd "C-c p") popwin:keymap)))
+  :config (progn
+            (popwin-mode 1)
+            (setq popwin:special-display-config
+                  '((" *auto-async-byte-compile*" :noselect t)
+                    ("*grep*")))
+            (global-set-key (kbd "C-c p") popwin:keymap)))
 
 (use-package recentf
-  :init (recentf-mode 1)
   :config (progn
+            (recentf-mode 1)
             (setq recentf-max-saved-items 10000)
             (run-with-idle-timer 30 t 'recentf-save-list)))
 
@@ -164,7 +168,7 @@
   :config (setq-default save-place t))
 
 (use-package sequential-command
-  :init (progn
+  :config (progn
           (define-sequential-command seq-expand
             cua-set-mark
             er/expand-region er/expand-region er/expand-region er/expand-region
@@ -178,7 +182,7 @@
   :config (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
 
 (use-package which-func
-  :init (which-function-mode 1))
+  :config (which-function-mode 1))
 
 (use-package yasnippet
-  :init (yas-global-mode 1))
+  :config (yas-global-mode 1))
