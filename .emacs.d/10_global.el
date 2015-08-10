@@ -113,7 +113,8 @@
   :config (progn
             (cua-mode t)
             (setq cua-enable-cua-keys nil))
-  :bind ("M-SPC" . cua-set-rectangle-mark))
+  :bind (("C-SPC" . cua-set-mark)
+         ("M-SPC" . cua-set-rectangle-mark)))
 
 (use-package expand-region
   :commands er/expand-region)
