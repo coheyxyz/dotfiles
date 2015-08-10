@@ -170,14 +170,10 @@
 
 (use-package sequential-command
   :config (progn
-          (define-sequential-command seq-expand
-            cua-set-mark
-            er/expand-region er/expand-region er/expand-region er/expand-region
-            er/expand-region er/expand-region er/expand-region er/expand-region
-            er/expand-region er/expand-region er/expand-region er/expand-region
-            er/expand-region er/expand-region er/expand-region er/expand-region)
-          (global-set-key (kbd "C-@") 'seq-expand)
-          (global-set-key (kbd "C-SPC") 'seq-expand)))
+            (eval (macroexpand `(define-sequential-command seq-expand
+                                  cua-set-mark ,@(make-list 100 'er/expand-region))))
+            (global-set-key (kbd "C-@") 'seq-expand)
+            (global-set-key (kbd "C-SPC") 'seq-expand)))
 
 (use-package uniquify
   :config (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
