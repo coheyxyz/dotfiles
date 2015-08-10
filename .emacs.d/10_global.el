@@ -97,7 +97,7 @@
 (require 'use-package)
 
 (use-package ace-jump-mode
-  :bind ("C-." . ace-jump-mode))
+  :bind ("C-\\" . ace-jump-mode))
 
 (use-package auto-complete-config
   :config (progn
