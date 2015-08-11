@@ -139,7 +139,9 @@
           (ido-everywhere t)))
 
 (use-package git-gutter
-  :config (global-git-gutter-mode 1)
+  :init (progn
+          (setq git-gutter:handled-backends '(git hg))
+          (global-git-gutter-mode 1))
   :bind (("C-x p" . git-gutter:previous-hunk)
          ("C-x n" . git-gutter:next-hunk)))
 
