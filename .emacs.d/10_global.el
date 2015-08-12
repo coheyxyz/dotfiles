@@ -110,7 +110,7 @@
   :config (autopair-global-mode))
 
 (use-package cua-base
-  :config (progn
+  :init (progn
             (cua-mode t)
             (setq cua-enable-cua-keys nil))
   :bind (("C-SPC" . cua-set-mark)
