@@ -120,7 +120,6 @@
   :commands er/expand-region)
 
 (use-package flycheck
-  :defer t
   :init (progn
           (add-hook 'after-init-hook 'global-flycheck-mode))
   :config (progn
@@ -158,6 +157,7 @@
             (global-set-key (kbd "C-c p") popwin:keymap)))
 
 (use-package recentf
+  :defer 10
   :config (progn
             (recentf-mode 1)
             (setq recentf-max-saved-items 10000)
@@ -184,4 +184,5 @@
   :config (which-function-mode 1))
 
 (use-package yasnippet
-  :config (yas-global-mode 1))
+  :config (yas-global-mode 1)
+  :bind ("TAB" . yas-expand))
