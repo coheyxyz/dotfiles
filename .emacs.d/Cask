@@ -24,8 +24,6 @@
 (depends-on "ido")
 (depends-on "init-loader")
 (depends-on "lispxmp")
-(depends-on "magit")
-(depends-on "magit-log-edit")
 (depends-on "markdown-mode")
 (depends-on "open-junk-file")
 (depends-on "paredit")
