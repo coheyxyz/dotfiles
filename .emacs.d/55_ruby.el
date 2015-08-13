@@ -1,22 +1,24 @@
 (require 'use-package)
 
 (use-package ruby-mode
-  :commands ruby-mode
-  :init (progn
-          (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
-          (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
-          (add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode)))
+  :mode (("\\.rb\\'" . ruby-mode)
+         ("\\.rake\\'" . ruby-mode))
+  :interpreter "ruby"
   :config (progn
-            (use-package ruby-end)
             (setq ruby-insert-encoding-magic-comment nil)
-            (setq ruby-deep-indent-paren-style nil)))
+            (setq ruby-deep-indent-paren-style nil)
 
-(use-package rinari
-  :init (global-rinari-mode)
-  :config (defadvice jump-select-and-find-file (after reenable-updir activate compile)
-            (define-key ido-file-dir-completion-map "\C-h" 'ido-delete-backward-updir)))
+            (use-package ruby-end)
+
+            (use-package rinari
+              :init (global-rinari-mode)
+              :config (defadvice jump-select-and-find-file (after reenable-updir activate compile)
+                        (define-key ido-file-dir-completion-map "\C-h" 'ido-delete-backward-updir)))
+            ))
+
 
 (use-package rhtml-mode
+  :commands rhtml-mode
   :init (add-hook 'rhtml-mode-hook
                   (lambda ()
                     (rinari-launch)
