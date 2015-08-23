@@ -411,7 +411,10 @@ fonts."
      (highlight ((t (:background "blue"))))
      (secondary-selection ((t (:background "navy"))))
      (widget-field-face ((t (:background "navy"))))
-     (widget-single-line-field-face ((t (:background "royalblue")))))))
+     (widget-single-line-field-face ((t (:background "royalblue"))))
+
+     (lazy-highlight-face ((t (:foreground "black"))))
+     (minibuffer-prompt ((t (:foreground "cyan")))))))
 
 
 (require 'use-package)
@@ -420,6 +423,4 @@ fonts."
   :init (progn
           (if window-system
               (color-theme-emacs-nw)
-            (color-theme-midnight)
-            (set-face-foreground 'minibuffer-prompt "cyan")
-            (set-face-foreground 'lazy-highlight "black"))))
+            (color-theme-midnight))))
