@@ -6,3 +6,5 @@
   :commands go-mode)
 (use-package markdown-mode
   :commands markdown-mode)
+(use-package sass-mode
+  :commands sass-mode)

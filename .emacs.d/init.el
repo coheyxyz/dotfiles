@@ -4,6 +4,6 @@
 (require 'use-package)
 
 (use-package init-loader
-  :init (init-loader-load "~/.emacs.d"))
+  :init (init-loader-load "~/.emacs.d/lisp"))
 
-(byte-recompile-directory (expand-file-name "~/.emacs.d") 0)
+(byte-recompile-directory (expand-file-name "~/.emacs.d/lisp") 0)
