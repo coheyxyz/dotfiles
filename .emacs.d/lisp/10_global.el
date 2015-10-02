@@ -96,9 +96,11 @@
 
 (require 'use-package)
 
+(el-get-bundle ace-jump-mode)
 (use-package ace-jump-mode
   :bind ("C-\\" . ace-jump-mode))
 
+(el-get-bundle auto-complete)
 (use-package auto-complete-config
   :config (progn
             (ac-config-default)
@@ -106,6 +108,7 @@
                   ac-use-menu-map t)
             (add-to-list 'ac-non-trigger-commands 'c-electric-delete-forward)))
 
+(el-get-bundle autopair)
 (use-package autopair
   :config (autopair-global-mode))
 
@@ -116,9 +119,11 @@
   :bind (("C-SPC" . cua-set-mark)
          ("M-SPC" . cua-set-rectangle-mark)))
 
+(el-get-bundle expand-region)
 (use-package expand-region
   :commands er/expand-region)
 
+(el-get-bundle flycheck)
 (use-package flycheck
   :init (progn
           (add-hook 'after-init-hook 'global-flycheck-mode))
@@ -137,6 +142,7 @@
           (ido-mode t)
           (ido-everywhere t)))
 
+(el-get-bundle git-gutter)
 (use-package git-gutter
   :init (progn
           (setq git-gutter:handled-backends '(git hg))
@@ -144,10 +150,12 @@
   :bind (("C-x p" . git-gutter:previous-hunk)
          ("C-x n" . git-gutter:next-hunk)))
 
+(el-get-bundle open-junk-file)
 (use-package open-junk-file
   :commands open-junk-file
   :config (setq open-junk-file-format "~/junk/%Y%m%d-%H%M%S."))
 
+(el-get-bundle popwin)
 (use-package popwin
   :config (progn
             (popwin-mode 1)
@@ -164,12 +172,14 @@
             (run-with-idle-timer 30 t 'recentf-save-list)))
 
 ; need to load first to keep track of commands
+(el-get-bundle redo+)
 (use-package redo+
   :init (global-set-key (kbd "M-z") 'redo))
 
 (use-package saveplace
   :config (setq-default save-place t))
 
+(el-get-bundle sequential-command)
 (use-package sequential-command
   :config (progn
             (eval (macroexpand `(define-sequential-command seq-expand
@@ -183,6 +193,7 @@
 (use-package which-func
   :config (which-function-mode 1))
 
+(el-get-bundle yasnippet)
 (use-package yasnippet
   :config (yas-global-mode 1)
   :bind ("TAB" . yas-expand))

@@ -1,5 +1,6 @@
 (require 'use-package)
 
+(el-get-bundle auto-async-byte-compile)
 (use-package auto-async-byte-compile
   :commands enable-auto-async-byte-compile-mode
   :init (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
@@ -13,6 +14,7 @@
           (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
           (setq eldoc-idle-delay 0.2)))
 
+(el-get-bundle paredit)
 (use-package paredit
   :commands enable-paredit-mode
   :init (progn
@@ -23,5 +25,6 @@
             (define-key paredit-mode-map (kbd "C-]") 'paredit-forward-slurp-sexp)
             (define-key paredit-mode-map (kbd "M-]") 'paredit-forward-barf-sexp)))
 
+(el-get-bundle lispxmp)
 (use-package lispxmp
   :commands lispxmp)

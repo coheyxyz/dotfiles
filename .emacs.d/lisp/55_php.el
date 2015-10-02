@@ -5,6 +5,7 @@
          (sc (delq 'c-lineup-cascaded-calls sc)))
     (add-to-list 'c-offsets-alist sc)))
 
+(el-get-bundle php-mode)
 (use-package php-mode
   :commands php-mode
   :config (progn
@@ -20,6 +21,7 @@
                           php-imenu-generic-expression))
             (add-hook 'php-mode-hook 'php-mode-do-not-align-arrows)))
 
+(el-get-bundle php-eldoc)
 (use-package php-eldoc
   :init (progn
           ; ( triggers eldoc immediately
@@ -29,4 +31,5 @@
 
 (setq ac-modes (cons 'xhp-mode ac-modes))
 
+(el-get-bundle geben)
 (use-package geben)

@@ -1,5 +1,6 @@
 (require 'use-package)
 
+(el-get-bundle helm)
 (use-package helm
   :config (progn
             (use-package helm-config)
@@ -16,10 +17,12 @@
          ("M-x" . helm-M-x)
          ("M-y" . helm-show-kill-ring)))
 
+(el-get-bundle helm-gtags)
 (use-package helm-gtags
   :bind (("M-." . helm-gtags-find-tag)
          ("M-r" . helm-gtags-find-rtag)
          ("M-," . helm-gtags-pop-stack)))
 
+(el-get-bundle helm-ag)
 (use-package helm-ag
   :commands helm-ag)

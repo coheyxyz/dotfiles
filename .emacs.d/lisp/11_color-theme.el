@@ -419,6 +419,7 @@ fonts."
 
 (require 'use-package)
 
+(el-get-bundle color-theme)
 (use-package color-theme
   :init (progn
           (if window-system

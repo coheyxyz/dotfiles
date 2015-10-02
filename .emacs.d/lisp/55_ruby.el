@@ -1,5 +1,6 @@
 (require 'use-package)
 
+(el-get-bundle ruby-mode)
 (use-package ruby-mode
   :mode (("\\.rb\\'" . ruby-mode)
          ("\\.rake\\'" . ruby-mode))
@@ -16,7 +17,7 @@
                         (define-key ido-file-dir-completion-map "\C-h" 'ido-delete-backward-updir)))
             ))
 
-
+(el-get-bundle rhtml-mode)
 (use-package rhtml-mode
   :commands rhtml-mode
   :init (add-hook 'rhtml-mode-hook
