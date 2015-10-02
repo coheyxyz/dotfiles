@@ -1,5 +1,6 @@
 (require 'use-package)
 
+(el-get-bundle elixir)
 (use-package elixir-mode
   :init (add-hook 'elixir-mode-hook
                   (defun auto-activate-ruby-end-mode-for-elixir-mode ()

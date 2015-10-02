@@ -1,6 +1,8 @@
 (require 'use-package)
 
 (el-get-bundle ruby-mode)
+(el-get-bundle ruby-end)
+(el-get-bundle rinari)
 (use-package ruby-mode
   :mode (("\\.rb\\'" . ruby-mode)
          ("\\.rake\\'" . ruby-mode))
