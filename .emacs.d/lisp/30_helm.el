@@ -1,6 +1,7 @@
 (require 'use-package)
 
 (el-get-bundle helm)
+(el-get-bundle helm-ls-git)
 (use-package helm
   :config (progn
             (use-package helm-config)
