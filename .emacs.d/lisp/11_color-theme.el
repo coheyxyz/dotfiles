@@ -1,4 +1,4 @@
-(defun color-theme-emacs-nw ()
+(defun my-color-theme-emacs-nw ()
   "Follow emacs21's color-theme, with -nw getting 100% compatibility.
 
 Alex's `color-theme-emacs-21' follows emacs21's theme, but in the
@@ -374,7 +374,7 @@ than absolute, viz: call that first and then tweak minor stuff."
      (woman-unknown-face ((t (:foreground "brown"))))
      (zmacs-region ((t (:background "lightgoldenrod2")))))))
 
-(defun color-theme-midnight ()
+(defun my-color-theme-midnight ()
   "Color theme by Gordon Messmer, created 2001-02-07.
 A color theme inspired by a certain IDE for Windows.  It's all from memory,
 since I only used that software in college.
@@ -416,12 +416,11 @@ fonts."
      (lazy-highlight-face ((t (:foreground "black"))))
      (minibuffer-prompt ((t (:foreground "cyan")))))))
 
-
 (require 'use-package)
 
 (el-get-bundle color-theme)
 (use-package color-theme
   :init (progn
           (if window-system
-              (color-theme-emacs-nw)
-            (color-theme-midnight))))
+              (my-color-theme-emacs-nw)
+            (my-color-theme-midnight))))
