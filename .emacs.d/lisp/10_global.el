@@ -132,15 +132,13 @@
             (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc html-tidy))
             (set-face-foreground 'flycheck-error "red")))
 
-(use-package hl-line
-  :config (progn
-            (global-hl-line-mode 1)
-            (setq hl-line-face 'underline)))
+(require 'hl-line)
+(global-hl-line-mode 1)
+(setq hl-line-face 'underline)
 
-(use-package ido
-  :config (progn
-          (ido-mode t)
-          (ido-everywhere t)))
+(require 'ido)
+(ido-mode t)
+(ido-everywhere t)
 
 (el-get-bundle git-gutter)
 (use-package git-gutter
