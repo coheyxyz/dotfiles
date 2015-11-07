@@ -2,7 +2,12 @@
 
 (el-get-bundle go-mode)
 (use-package go-mode
-  :commands go-mode)
+  :commands go-mode
+  :init (progn
+          (setq ido-ignore-files (cons "\\.test\\'" ido-ignore-files)))
+  :config (progn
+            (setq gofmt-command "goimports")
+            (add-hook 'before-save-hook 'gofmt-before-save)))
 
 (el-get-bundle markdown-mode)
 (use-package markdown-mode

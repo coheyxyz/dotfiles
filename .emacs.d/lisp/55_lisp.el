@@ -1,5 +1,8 @@
 (require 'use-package)
 
+(setq eval-expression-print-length 1200
+      eval-expression-print-level 400)
+
 (el-get-bundle auto-async-byte-compile)
 (use-package auto-async-byte-compile
   :commands enable-auto-async-byte-compile-mode

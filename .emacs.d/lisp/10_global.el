@@ -139,8 +139,8 @@
 
 (use-package ido
   :config (progn
-          (ido-mode t)
-          (ido-everywhere t)))
+            (ido-mode t)
+            (ido-everywhere t)))
 
 (el-get-bundle git-gutter)
 (use-package git-gutter
