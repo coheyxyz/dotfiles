@@ -159,7 +159,8 @@
             (popwin-mode 1)
             (setq popwin:special-display-config
                   '((" *auto-async-byte-compile*" :noselect t)
-                    ("*grep*")))
+                    ("*grep*")
+                    ("*Gofmt Errors*" :noselect t)))
             (global-set-key (kbd "C-c p") popwin:keymap)))
 
 (use-package recentf

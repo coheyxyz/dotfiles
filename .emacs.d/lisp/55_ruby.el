@@ -16,8 +16,7 @@
             (use-package rinari
               :init (global-rinari-mode)
               :config (defadvice jump-select-and-find-file (after reenable-updir activate compile)
-                        (define-key ido-file-dir-completion-map "\C-h" 'ido-delete-backward-updir)))
-            ))
+                        (define-key ido-file-dir-completion-map "\C-h" 'ido-delete-backward-updir)))))
 
 (el-get-bundle rhtml-mode)
 (use-package rhtml-mode
