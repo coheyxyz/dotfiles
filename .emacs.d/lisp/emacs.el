@@ -333,6 +333,27 @@
 
 
 ;;;
+;;; python
+;;;
+(use-package python-mode
+  :config (progn
+            (setq-default python-indent-offset 2)
+            (add-to-list 'auto-mode-alist '("\\.j2\\'" . web-mode))
+            (if (boundp 'web-mode-engines-alist)
+                (add-to-list 'web-mode-engines-alist '("django" . "\\.j2\\'"))
+              (setq web-mode-engines-alist '(("django" . "\\.j2\\'"))))
+            (add-hook 'python-mode-hook
+                      (lambda ()
+                        (setq ido-ignore-files (cons "__pycache__" ido-ignore-files))
+                        (define-key python-mode-map (kbd "DEL") 'py-electric-backspace)))
+            (add-hook 'web-mode-hook
+                      (lambda ()
+                        (if (string= web-mode-engine "django")
+                            (push ?{ (getf autopair-dont-pair :code)))))))
+
+
+
+;;;
 ;;; misc
 ;;;
 (use-package web-mode
@@ -359,7 +380,8 @@
                               web-mode-enable-auto-closing t
                               web-mode-enable-auto-opening t
                               web-mode-enable-auto-pairing t
-                              web-mode-auto-close-style 2)))))
+                              web-mode-auto-close-style 2)
+                        (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))))))
 
 (use-package js
   :config (progn
@@ -389,5 +411,3 @@
   :config (progn
             (setq sh-basic-offset 2
                   sh-indentation 2)))
-
-(use-package python-mode)
