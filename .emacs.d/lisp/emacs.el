@@ -275,7 +275,11 @@
                                   (setq exp exp))
                               (append `(,name) `(,exp) rest)))
                           php-imenu-generic-expression))
-            (add-hook 'php-mode-hook 'php-mode-do-not-align-arrows)))
+            (add-hook 'php-mode-hook (lambda ()
+                                       (php-mode-do-not-align-arrows)
+                                       (modify-syntax-entry ?< ".")
+                                       (modify-syntax-entry ?> ".")
+                                       (superword-mode)))))
 
 (use-package php-eldoc
   :init (progn
@@ -283,11 +287,6 @@
           (eval-after-load 'eldoc
             '(eldoc-add-command "c-electric-paren"))
           (add-hook 'php-mode-hook 'php-eldoc-enable)))
-
-;; TODO:
-;; (setq ac-modes (cons 'xhp-mode ac-modes))
-
-(use-package geben)
 
 
 ;;;
