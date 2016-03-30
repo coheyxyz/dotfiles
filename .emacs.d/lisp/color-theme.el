@@ -417,8 +417,6 @@ fonts."
      (minibuffer-prompt ((t (:foreground "cyan")))))))
 
 (require 'use-package)
-
-(el-get-bundle color-theme)
 (use-package color-theme
   :init (progn
           (if window-system
