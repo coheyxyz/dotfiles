@@ -345,8 +345,7 @@
               (setq web-mode-engines-alist '(("django" . "\\.j2\\'"))))
             (add-hook 'python-mode-hook
                       (lambda ()
-                        (setq ido-ignore-files (cons "__pycache__" ido-ignore-files))
-                        (define-key python-mode-map (kbd "DEL") 'py-electric-backspace)))
+                        (setq ido-ignore-files (cons "__pycache__" ido-ignore-files))))
             (add-hook 'web-mode-hook
                       (lambda ()
                         (if (string= web-mode-engine "django")
