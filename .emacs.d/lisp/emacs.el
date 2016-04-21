@@ -336,7 +336,7 @@
 ;;;
 ;;; python
 ;;;
-(use-package python-mode
+(use-package python
   :config (progn
             (setq-default python-indent-offset 2)
             (add-to-list 'auto-mode-alist '("\\.j2\\'" . web-mode))
