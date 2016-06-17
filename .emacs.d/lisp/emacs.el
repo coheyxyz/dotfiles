@@ -235,10 +235,10 @@
   :config (setq auto-async-byte-compile-exclude-files-regexp "/junk/"))
 
 (use-package eldoc
-  :commands turn-on-eldoc-mode
+  :commands eldoc-mode
   :init (progn
-          (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-          (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+          (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
+          (add-hook 'lisp-interaction-mode-hook 'eldoc-mode)
           (add-hook 'ielm-mode-hook 'eldoc-mode)
           (setq eldoc-idle-delay 0.2)))
 
@@ -286,8 +286,8 @@
   :init (progn
           ;; ( triggers eldoc immediately
           (eval-after-load 'eldoc
-            '(eldoc-add-command "c-electric-paren"))
-          (add-hook 'php-mode-hook 'php-eldoc-enable)))
+            '(eldoc-add-command "autopair-insert-opening"))
+          (add-hook 'php-mode-hook 'eldoc-mode)))
 
 
 ;;;
