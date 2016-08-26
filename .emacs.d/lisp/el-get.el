@@ -30,6 +30,7 @@
 (el-get-bundle auto-async-byte-compile)
 (el-get-bundle paredit)
 (el-get-bundle lispxmp)
+(el-get-bundle slime)
 (el-get-bundle php-mode)
 (el-get-bundle php-eldoc)
 (el-get-bundle ruby-mode)
@@ -43,3 +44,5 @@
 (el-get-bundle yaml-mode)
 (el-get-bundle elixir)
 (el-get-bundle alchemist)
+(el-get-bundle cl-generic)  ; dependency of ein
+(el-get-bundle ein)

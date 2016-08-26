@@ -191,8 +191,8 @@
 (use-package yasnippet
   :init (progn
           (yas-global-mode 1)
-          (setq-default ac-sources (append '(ac-source-yasnippet) ac-sources)))
-  :bind ("C-j" . yas-expand))
+          (setq-default ac-sources (append '(ac-source-yasnippet) ac-sources))
+          (define-key yas-minor-mode-map (kbd "TAB") 'yas-expand)))
 
 
 ;;;
@@ -253,6 +253,9 @@
 
 (use-package lispxmp
   :commands lispxmp)
+
+(use-package slime
+  :config (setq inferior-lisp-program "sbcl"))
 
 
 ;;;
@@ -351,6 +354,7 @@
                         (if (string= web-mode-engine "django")
                             (push ?{ (getf autopair-dont-pair :code)))))))
 
+(use-package ein)
 
 
 ;;;

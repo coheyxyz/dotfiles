@@ -50,8 +50,8 @@ bashcompinit
 [[ -s ~/.cask ]] && export PATH="$HOME/.cask/bin:$PATH"
 
 if which rbenv > /dev/null 2>&1; then eval "$(rbenv init -)"; fi
-if which direnv > /dev/null 2>&1; then eval "$(direnv hook zsh)"; fi
-
+if which pyenv > /dev/null 2>&1; then eval "$(pyenv init -)"; fi
+if which direnv > /dev/null 2>&1; then eval "$(direnv hook zsh)"; [ -f .envrc ] && direnv reload; fi
 
 # load under ~/.zsh/
 ZSHHOME="${HOME}/.zsh"
