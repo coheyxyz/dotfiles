@@ -254,6 +254,7 @@
 (use-package lispxmp
   :commands lispxmp)
 
+; may need to update texinfo to run make
 (use-package slime
   :config (setq inferior-lisp-program "sbcl"))
 
@@ -304,18 +305,12 @@
             (setq ruby-insert-encoding-magic-comment nil)
             (setq ruby-deep-indent-paren-style nil)
 
-            (use-package ruby-end)
-
-            (use-package rinari
-              :init (global-rinari-mode)
-              :config (defadvice jump-select-and-find-file (after reenable-updir activate compile)
-                        (define-key ido-file-dir-completion-map "\C-h" 'ido-delete-backward-updir)))))
+            (use-package ruby-end)))
 
 (use-package rhtml-mode
   :commands rhtml-mode
   :init (add-hook 'rhtml-mode-hook
                   (lambda ()
-                    (rinari-launch)
                     (set-face-background 'erb-face nil)
                     (set-face-bold-p 'erb-face t)
                     (set-face-background 'erb-exec-face nil)

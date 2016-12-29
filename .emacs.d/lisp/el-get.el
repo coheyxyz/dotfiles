@@ -35,7 +35,6 @@
 (el-get-bundle php-eldoc)
 (el-get-bundle ruby-mode)
 (el-get-bundle ruby-end)
-(el-get-bundle rinari)
 (el-get-bundle rhtml-mode)
 (el-get-bundle web-mode)
 (el-get-bundle go-mode)
