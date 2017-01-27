@@ -158,7 +158,8 @@
             (setq popwin:special-display-config
                   '((" *auto-async-byte-compile*" :noselect t)
                     ("*grep*")
-                    ("*Gofmt Errors*" :noselect t)))
+                    ("*Gofmt Errors*" :noselect t)
+                    ("*compilation*" :noselect t)))
             (global-set-key (kbd "C-c p") popwin:keymap)))
 
 (use-package recentf
@@ -228,6 +229,9 @@
 ;;;
 (setq eval-expression-print-length 1200
       eval-expression-print-level 400)
+
+(add-hook 'emacs-lisp-mode-hook
+          (lambda () (superword-mode)))
 
 (use-package auto-async-byte-compile
   :commands enable-auto-async-byte-compile-mode

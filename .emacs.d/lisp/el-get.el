@@ -45,3 +45,4 @@
 (el-get-bundle alchemist)
 (el-get-bundle cl-generic)  ; dependency of ein
 (el-get-bundle ein)
+(el-get-bundle erlang-mode)
