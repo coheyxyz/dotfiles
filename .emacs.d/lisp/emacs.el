@@ -192,7 +192,8 @@
 (use-package yasnippet
   :init (progn
           (yas-global-mode 1)
-          (setq-default ac-sources (append '(ac-source-yasnippet) ac-sources))))
+          (setq-default ac-sources (append '(ac-source-yasnippet) ac-sources))
+          (define-key yas-minor-mode-map (kbd "TAB") yas-maybe-expand)))
 
 
 ;;;
