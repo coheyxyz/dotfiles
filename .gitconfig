@@ -1,15 +1,15 @@
 [core]
-	editor = vim -c \"set fenc=utf-8\"
-	excludesfile = ~/.gitignore
+  editor = vim -c \"set fenc=utf-8\"
+  excludesfile = ~/.gitignore
 [alias]
-	co = checkout
-	ci = commit
-	st = status
-	br = branch
-	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  co = checkout
+  ci = commit
+  st = status
+  br = branch
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 [color]
-	ui = auto
+  ui = auto
 [push]
-	default = tracking
+  default = tracking
 [include]
-	path = .gitconfig.local
+  path = .gitconfig.local

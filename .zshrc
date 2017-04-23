@@ -19,8 +19,6 @@ zstyle ':completion:*:default' menu select=2
 
 # aliases
 alias ls='ls -F'
-alias r=rails
-# aliases for git
 alias g=git
 alias gs='git status'
 alias gd='git diff'

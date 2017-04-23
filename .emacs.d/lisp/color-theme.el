@@ -372,7 +372,9 @@ than absolute, viz: call that first and then tweak minor stuff."
      (woman-bold-face ((t (:bold t :foreground "blue" :weight bold))))
      (woman-italic-face ((t (:italic t :foreground "red" :underline t :slant italic))))
      (woman-unknown-face ((t (:foreground "brown"))))
-     (zmacs-region ((t (:background "lightgoldenrod2")))))))
+     (zmacs-region ((t (:background "lightgoldenrod2"))))
+
+     (helm-selection ((t (:foreground "white")))))))
 
 (defun my-color-theme-midnight ()
   "Color theme by Gordon Messmer, created 2001-02-07.

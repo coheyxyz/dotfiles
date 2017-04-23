@@ -14,6 +14,8 @@
               truncate-partial-width-windows t
               truncate-lines t)
 
+(put 'upcase-region 'disabled nil)
+
 
 ;;;
 ;;; key bindings
@@ -193,7 +195,7 @@
   :init (progn
           (yas-global-mode 1)
           (setq-default ac-sources (append '(ac-source-yasnippet) ac-sources))
-          (define-key yas-minor-mode-map (kbd "TAB") yas-maybe-expand)))
+          (define-key yas-minor-mode-map (kbd "TAB") 'yas-expand)))
 
 
 ;;;
@@ -409,8 +411,8 @@
 (use-package yaml-mode
   :commands yaml-mode)
 
-(use-package sh-mode
-  :commands shell-mode
+(use-package sh-script
+  :commands sh-mode
   :config (progn
             (setq sh-basic-offset 2
                   sh-indentation 2)))
