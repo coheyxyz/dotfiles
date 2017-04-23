@@ -45,9 +45,7 @@ remapKey({'ctrl'}, 'p', keyCode('up'))
 remapKey({'ctrl'}, 'w', keyCode('x', {'cmd'}))
 remapKey({'ctrl'}, 'y', keyCode('v', {'cmd'}))
 
---remapKey({'ctrl'}, 's', keyCode('f', {'cmd'}))
---remapKey({'ctrl'}, '/', keyCode('z', {'cmd'}))
---remapKey({'ctrl'}, 'g', keyCode('escape'))
+remapKey({'ctrl'}, 'h', keyCode('delete'))
 
 remapKey({'ctrl'}, 'v', keyCode('pagedown'))
 remapKey({'alt'}, 'v', keyCode('pageup'))

@@ -1,9 +1,8 @@
 #!/bin/bash
 
-cp .zshrc ~/
-cp -r .zsh ~/
-cp -r .emacs.d ~/
-cp .gitconfig ~/
-cp .gitignore ~/
-cp .gemrc ~/
-cp .tmux.conf ~/
+for i in `ls -A`; do
+  if [[ $i != `basename $0` && $i != ".git" && $i != "settings" && $i != ".emacs.d" ]]; then
+    echo $i
+    diff -r ~/$i $i
+  fi
+done
