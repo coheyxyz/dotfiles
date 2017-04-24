@@ -6,10 +6,10 @@ diff_opts="-r -x cache -x *.elc"
 function my_diff() {
   file=$1
 
-  if ! diff $diff_opts ~/$file $file > /dev/null; then
+  if ! diff $diff_opts ~/$file $file > /dev/null 2>&1; then
     echo '--- '$file
     diff $diff_opts ~/$file $file
-    echo; echo; echo
+    echo; echo
   fi
 }
 

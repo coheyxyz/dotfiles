@@ -41,6 +41,8 @@ remapKey({'ctrl'}, 'f', keyCode('right'))
 remapKey({'ctrl'}, 'b', keyCode('left'))
 remapKey({'ctrl'}, 'n', keyCode('down'))
 remapKey({'ctrl'}, 'p', keyCode('up'))
+remapKey({'ctrl'}, 'a', keyCode('left', {'cmd'}))
+remapKey({'ctrl'}, 'e', keyCode('right', {'cmd'}))
 
 remapKey({'ctrl'}, 'w', keyCode('x', {'cmd'}))
 remapKey({'ctrl'}, 'y', keyCode('v', {'cmd'}))
