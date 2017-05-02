@@ -261,6 +261,7 @@
   :commands lispxmp)
 
 ; may need to update texinfo to run make
+; brew install texinfo && brew link texinfo --force
 (use-package slime
   :config (setq inferior-lisp-program "sbcl"))
 
