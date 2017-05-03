@@ -42,6 +42,7 @@
 (el-get-bundle scss-mode)
 (el-get-bundle yaml-mode)
 (el-get-bundle elixir)
+(el-get-bundle s)  ; dependency of alchemist
 (el-get-bundle alchemist)
 (el-get-bundle cl-generic)  ; dependency of ein
 (el-get-bundle ein)
