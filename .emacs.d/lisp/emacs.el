@@ -2,7 +2,7 @@
 ;;; variables
 ;;;
 
-(setq scroll-step 1
+(setq scroll-step 5
       gc-cons-threshold (* 10 gc-cons-threshold)
       echo-keystrokes 0.1
       make-backup-files nil
@@ -12,9 +12,12 @@
 (setq-default tab-width 2
               indent-tabs-mode nil
               truncate-partial-width-windows t
-              truncate-lines t)
+              truncate-lines t
+              bidi-display-reordering nil)
 
+; Enable commands
 (put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
 
 
 ;;;
@@ -103,7 +106,9 @@
 (require 'use-package)
 
 (use-package ace-jump-mode
-  :bind ("C-\\" . ace-jump-mode))
+  :bind ("C-\\" . ace-jump-mode)
+  :config (progn
+            (setq ace-jump-word-mode-use-query-char nil)))
 
 (use-package auto-complete-config
   :config (progn
@@ -171,12 +176,8 @@
             (setq recentf-max-saved-items 10000)
             (run-with-idle-timer 30 t 'recentf-save-list)))
 
-;; need to load first to keep track of commands
-(use-package redo+
-  :init (global-set-key (kbd "M-z") 'redo))
-
 (use-package saveplace
-  :config (setq-default save-place t))
+  :init (save-place-mode t))
 
 (use-package sequential-command
   :config (progn
@@ -195,7 +196,7 @@
   :init (progn
           (yas-global-mode 1)
           (setq-default ac-sources (append '(ac-source-yasnippet) ac-sources))
-          (define-key yas-minor-mode-map (kbd "TAB") yas-maybe-expand)))
+          (define-key yas-minor-mode-map (kbd "TAB") 'yas-expand)))
 
 
 ;;;
@@ -261,7 +262,6 @@
   :commands lispxmp)
 
 ; may need to update texinfo to run make
-; brew install texinfo && brew link texinfo --force
 (use-package slime
   :config (setq inferior-lisp-program "sbcl"))
 
@@ -344,10 +344,6 @@
 (use-package python
   :config (progn
             (setq-default python-indent-offset 2)
-            (add-to-list 'auto-mode-alist '("\\.j2\\'" . web-mode))
-            (if (boundp 'web-mode-engines-alist)
-                (add-to-list 'web-mode-engines-alist '("django" . "\\.j2\\'"))
-              (setq web-mode-engines-alist '(("django" . "\\.j2\\'"))))
             (add-hook 'python-mode-hook
                       (lambda ()
                         (setq ido-ignore-files (cons "__pycache__" ido-ignore-files))))
@@ -356,7 +352,11 @@
                         (if (string= web-mode-engine "django")
                             (push ?{ (getf autopair-dont-pair :code)))))))
 
-(use-package ein)
+(use-package ein
+  :config (progn
+            (add-hook 'ein:notebook-mode-hook
+                      (lambda ()
+                        (set-syntax-table python-mode-syntax-table)))))
 
 
 ;;;
@@ -367,7 +367,8 @@
          ("\\.erb\\'" . web-mode)
          ("\\.twig\\'" . web-mode)
          ("\\.eex\\'" . web-mode)
-         ("\\.gohtml\\'" . web-mode))
+         ("\\.gohtml\\'" . web-mode)
+         ("\\.dtl\\'" . web-mode))
   :config (progn
             (add-hook 'web-mode-hook
                       (lambda ()
