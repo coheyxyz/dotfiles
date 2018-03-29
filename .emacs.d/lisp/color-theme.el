@@ -16,7 +16,7 @@ TODO: Try to make this theme relative to color-theme-emacs-21 rather
 than absolute, viz: call that first and then tweak minor stuff."
   (interactive)
   (color-theme-install
-   '(color-theme-emacs-nw
+   '(my-color-theme-emacs-nw
      ((background-color . "white")
       (background-mode . light)
       (border-color . "black")
@@ -372,9 +372,7 @@ than absolute, viz: call that first and then tweak minor stuff."
      (woman-bold-face ((t (:bold t :foreground "blue" :weight bold))))
      (woman-italic-face ((t (:italic t :foreground "red" :underline t :slant italic))))
      (woman-unknown-face ((t (:foreground "brown"))))
-     (zmacs-region ((t (:background "lightgoldenrod2"))))
-
-     (helm-selection ((t (:foreground "white")))))))
+     (zmacs-region ((t (:background "lightgoldenrod2")))))))
 
 (defun my-color-theme-midnight ()
   "Color theme by Gordon Messmer, created 2001-02-07.
@@ -387,7 +385,7 @@ The default setting will prevent color themes from installing specific
 fonts."
   (interactive)
   (color-theme-install
-   '(color-theme-midnight
+   '(my-color-theme-midnight
      ((font . "fixed")
       (width . 130)
       (height . 50)
@@ -418,9 +416,15 @@ fonts."
      (lazy-highlight-face ((t (:foreground "black"))))
      (minibuffer-prompt ((t (:foreground "cyan")))))))
 
-(require 'use-package)
 (use-package color-theme
-  :init (progn
-          (if window-system
-              (my-color-theme-emacs-nw)
-            (my-color-theme-midnight))))
+  :ensure t
+  :init
+  (dolist (path load-path)
+    (if (string-match-p "color-theme" path)
+        (mkdir (concat (file-name-as-directory path) "themes") t)))
+  :config
+  (setq color-theme-load-all-themes nil)
+  (color-theme-initialize)
+  (if window-system
+      (my-color-theme-emacs-nw)
+    (my-color-theme-midnight)))

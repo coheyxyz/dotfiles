@@ -10,3 +10,4 @@ GTAGS
 *.pyc
 node_modules
 .ipynb_checkpoints/
+npm-debug.log

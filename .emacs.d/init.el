@@ -1,16 +1,17 @@
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
+(require 'package)
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
 
-(when load-file-name
-  (setq user-emacs-directory (file-name-directory load-file-name)))
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
-;; suppress minor warnings while loading packages
-(setq ad-redefinition-action 'accept)
+;(when load-file-name
+;  (setq user-emacs-directory (file-name-directory load-file-name)))
 
-(load-file (locate-user-emacs-file "lisp/el-get.el"))
+;(load-file (locate-user-emacs-file "lisp/el-get.el"))
 (load-file (locate-user-emacs-file "lisp/emacs.el"))
 
+(byte-recompile-file (locate-user-emacs-file "init.el") nil 0)
 (byte-recompile-directory (locate-user-emacs-file "lisp") 0)
