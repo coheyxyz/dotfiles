@@ -3,6 +3,19 @@
   (require 'use-package)
   (package-initialize))
 
+(use-package diminish
+  :ensure t
+  :demand t)
+
+(use-package key-chord
+  :ensure t
+  :demand t
+  :config (key-chord-mode 1))
+
+(use-package mykie
+  :ensure t
+  :demand t)
+
 
 ;;;
 ;;; variables
@@ -38,51 +51,36 @@
 (global-set-key (kbd "C-z") 'undo)
 (define-key input-decode-map (kbd "C-h") (kbd "DEL"))
 
-(defun move-bol-or-indent ()
-  (interactive)
-  (let ((pos (point)))
-    (back-to-indentation)
-    (if (equal pos (point))
-        (move-beginning-of-line 1))))
-
-(global-set-key (kbd "C-a") 'move-bol-or-indent)
-
-(defun kill-region-or-delete-backward-word ()
-  (interactive)
-  (if (or (not transient-mark-mode)
-           mark-active)
-      (kill-region (region-beginning) (region-end))
-    (delete-region (point)
-                   (progn (backward-word) (point)))))
-(global-set-key (kbd "C-w") 'kill-region-or-delete-backward-word)
-
-(defmacro global-set-alternate (key regular alternate)
-  `(global-set-key ,key (lambda (prefix)
-                          (interactive "P")
-                          (call-interactively
-                           (if prefix
-                               ,alternate
-                             ,regular)))))
+(mykie:global-set-key "C-w"
+  :default (delete-region (point)
+                          (progn (backward-word) (point)))
+  :region kill-region)
+(mykie:global-set-key "M-%"
+  :default query-replace
+  :C-u query-replace-regexp)
+(mykie:global-set-key "C-x C-c"
+  :default (message "Need C-u")
+  :C-u save-buffers-kill-terminal)
+(mykie:global-set-key "C-x C-z"
+  :default (message "Need C-u")
+  :C-u suspend-frame)
 
 (defvar startup-directory default-directory)
 (defun find-file-from-startup-directory ()
   (interactive)
   (let ((default-directory startup-directory))
     (call-interactively 'ido-find-file)))
-(global-set-alternate (kbd "C-x C-f")
-                      'ido-find-file
-                      'find-file-from-startup-directory)
+(mykie:global-set-key "C-x C-f"
+  :default ido-find-file
+  :C-u find-file-from-startup-directory)
 
-(defmacro require-prefix-to-execute (key command)
-  `(global-set-alternate ,key
-                         (lambda ()
-                           (interactive)
-                           (message "Please prefix C-u to execute the command"))
-                         ,command))
-(require-prefix-to-execute (kbd "C-x C-c") 'save-buffers-kill-terminal)
-(require-prefix-to-execute (kbd "C-x C-z") 'suspend-frame)
-
-(global-set-alternate (kbd "M-%") 'query-replace 'query-replace-regexp)
+(defun move-bol-or-indent ()
+  (interactive)
+  (let ((pos (point)))
+    (back-to-indentation)
+    (if (equal pos (point))
+        (move-beginning-of-line 1))))
+(global-set-key (kbd "C-a") 'move-bol-or-indent)
 
 
 ;;;
@@ -110,10 +108,6 @@
 ;;;
 ;;; packages
 ;;;
-
-(use-package diminish
-  :ensure t
-  :demand t)
 
 (use-package cua-base
   :config
@@ -150,8 +144,21 @@
 
 (use-package ace-jump-mode
   :ensure t
-  :bind ("C-\\" . ace-jump-word-mode)
-  :config (setq ace-jump-word-mode-use-query-char nil))
+  :commands (ace-jump-word-mode ace-jump-mode-pop-mark)
+  :init
+  (mykie:global-set-key "C-\\"
+      :default ace-jump-word-mode
+      :C-u ace-jump-mode-pop-mark)
+  :config
+  (setq ace-jump-word-mode-use-query-char nil)
+  (setq ace-jump-mode-move-keys (loop for i from ?a to ?z collect i)))
+
+(use-package goto-chg
+  :ensure t
+  :commands (goto-last-change goto-last-change-reverse)
+  :init
+  (key-chord-define-global "'f" 'goto-last-change)
+  (key-chord-define-global "'b" 'goto-last-change-reverse))
 
 (use-package auto-complete-config
   :ensure auto-complete
@@ -196,6 +203,7 @@
 (use-package yasnippet
   :ensure t
   :after auto-complete-config
+  :config (add-to-list ac-sources 'ac-source-yasnippet)
   :bind (:map yas-minor-mode-map
               ("TAB" . yas-maybe-expand))
   :hook (after-init . yas-global-mode))
