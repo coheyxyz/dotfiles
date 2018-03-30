@@ -13,7 +13,8 @@
       echo-keystrokes 0.1
       make-backup-files nil
       auto-save-default nil
-      save-abbrevs nil)
+      save-abbrevs nil
+      vc-handled-backends nil)
 
 (setq-default tab-width 2
               indent-tabs-mode nil
@@ -110,6 +111,10 @@
 ;;; packages
 ;;;
 
+(use-package diminish
+  :ensure t
+  :demand t)
+
 (use-package cua-base
   :config
   (setq cua-enable-cua-keys nil)
@@ -128,7 +133,8 @@
   :hook (after-init . ido-mode))
 
 (use-package saveplace
-  :hook (after-init . save-place-mode))
+  :hook (after-init . save-place-mode)
+  )
 
 (use-package recentf
   :config
@@ -149,14 +155,18 @@
 
 (use-package auto-complete-config
   :ensure auto-complete
+  :diminish auto-complete-mode
   :config
   (setq ac-auto-start 2
         ac-use-menu-map t)
   (add-to-list 'ac-non-trigger-commands 'c-electric-delete-forward)
   :hook (after-init . ac-config-default))
 
-(use-package smartparens-config
-  :ensure smartparens)
+(use-package smartparens
+  :ensure smartparens
+  :diminish smartparens-mode
+  :config (require 'smartparens-config)
+  :hook (after-init . smartparens-global-mode))
 
 (use-package popwin
   :ensure t
@@ -167,7 +177,7 @@
           ("*Gofmt Errors*" :noselect t)
           ("*compilation*" :noselect t)))
   :hook (after-init . popwin-mode)
-  :bind ("C-c p" . popwin:keymap))
+  :bind-keymap ("C-c p" . popwin:keymap))
 
 (use-package expand-region
   :ensure t
@@ -190,8 +200,12 @@
               ("TAB" . yas-maybe-expand))
   :hook (after-init . yas-global-mode))
 
+(use-package abbrev
+  :diminish abbrev-mode)
+
 (use-package flycheck
   :ensure t
+  :diminish
   :config
   (setq flycheck-display-errors-delay 0.3)
   (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc html-tidy))
@@ -200,6 +214,7 @@
 
 (use-package git-gutter
   :ensure t
+  :diminish
   :config
   (setq git-gutter:handled-backends '(git hg))
   :hook (after-init . global-git-gutter-mode)
@@ -210,6 +225,10 @@
   :ensure t
   :commands open-junk-file
   :config (setq open-junk-file-format "~/junk/%Y%m%d-%H%M%S."))
+
+(use-package subword
+  :diminish superword-mode
+  :commands superword-mode)
 
 
 ;;;
@@ -246,6 +265,7 @@
   :hook (emacs-lisp-mode . enable-auto-async-byte-compile-mode))
 
 (use-package eldoc
+  :diminish
   :commands eldoc-mode
   :config (setq eldoc-idle-delay 0.2)
   :hook ((emacs-lisp-mode . eldoc-mode)
@@ -254,6 +274,7 @@
 
 (use-package paredit
   :ensure t
+  :diminish
   :hook ((emacs-lisp-mode . enable-paredit-mode)
          (lisp-interacton-mode . enable-paredit-mode))
   :bind (:map paredit-mode-map
@@ -270,6 +291,7 @@
     (add-to-list 'c-offsets-alist sc)))
 
 (use-package php-mode
+  :ensure t
   :mode "\\.php\\'"
   :interpreter "php"
   :config
@@ -347,7 +369,7 @@
   (web-mode-html-tag-bracket-face ((t :inherit 'default))))
 
 (use-package js
-  :mode "\\.js\\'"
+  :mode ("\\.js\\'" . js-mode)
   :config (setq js-indent-level 2))
 
 (use-package go-mode

@@ -7,10 +7,6 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-;(when load-file-name
-;  (setq user-emacs-directory (file-name-directory load-file-name)))
-
-;(load-file (locate-user-emacs-file "lisp/el-get.el"))
 (load-file (locate-user-emacs-file "lisp/emacs.el"))
 
 (byte-recompile-file (locate-user-emacs-file "init.el") nil 0)
