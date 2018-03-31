@@ -167,7 +167,8 @@
   (setq ac-auto-start 2
         ac-use-menu-map t)
   (add-to-list 'ac-non-trigger-commands 'c-electric-delete-forward)
-  :hook (after-init . ac-config-default))
+  (ac-config-default) ; set default ac-sources and allow to be overwritten
+  )
 
 (use-package smartparens
   :ensure smartparens
@@ -202,11 +203,20 @@
 
 (use-package yasnippet
   :ensure t
+  :diminish yas-minor-mode
   :after auto-complete-config
-  :config (add-to-list ac-sources 'ac-source-yasnippet)
-  :bind (:map yas-minor-mode-map
-              ("TAB" . yas-maybe-expand))
-  :hook (after-init . yas-global-mode))
+  (setq-default ac-sources (cons 'ac-source-yasnippet ac-sources))
+  (setq yas-buffer-local-condition
+        '(if (= (point)
+                (save-excursion
+                  (back-to-indentation)
+                  (skip-syntax-forward "^ " (line-end-position))
+                  (point)))
+             t
+           '(require-snippet-condition . anywhere)))
+  (yas-global-mode)
+  (define-key yas-minor-mode-map (kbd "TAB") nil)
+  (define-key yas-minor-mode-map (kbd "SPC") yas-maybe-expand))
 
 (use-package abbrev
   :diminish abbrev-mode)
