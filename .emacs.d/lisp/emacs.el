@@ -44,43 +44,43 @@
 ;;; key bindings
 ;;;
 
-(global-set-key (kbd "C-x C-b") 'buffer-menu)
-(global-set-key (kbd "C-i") 'indent-for-tab-command)
-(global-set-key (kbd "C-m") 'newline-and-indent)
-(global-set-key (kbd "C-t") 'other-window)
-(global-set-key (kbd "C-z") 'undo)
-(define-key input-decode-map (kbd "C-h") (kbd "DEL"))
-
-(mykie:global-set-key "C-w"
-  :default (delete-region (point)
-                          (progn (backward-word) (point)))
-  :region kill-region)
-(mykie:global-set-key "M-%"
-  :default query-replace
-  :C-u query-replace-regexp)
-(mykie:global-set-key "C-x C-c"
-  :default (message "Need C-u")
-  :C-u save-buffers-kill-terminal)
-(mykie:global-set-key "C-x C-z"
-  :default (message "Need C-u")
-  :C-u suspend-frame)
-
-(defvar startup-directory default-directory)
-(defun find-file-from-startup-directory ()
-  (interactive)
-  (let ((default-directory startup-directory))
-    (call-interactively 'ido-find-file)))
-(mykie:global-set-key "C-x C-f"
-  :default ido-find-file
-  :C-u find-file-from-startup-directory)
-
 (defun move-bol-or-indent ()
   (interactive)
   (let ((pos (point)))
     (back-to-indentation)
     (if (equal pos (point))
         (move-beginning-of-line 1))))
-(global-set-key (kbd "C-a") 'move-bol-or-indent)
+
+(defvar startup-directory default-directory)
+(defun find-file-from-startup-directory ()
+  (interactive)
+  (let ((default-directory startup-directory))
+    (call-interactively 'ido-find-file)))
+
+(bind-keys
+ ("C-a" . move-bol-or-indent)
+ ("C-i" . indent-for-tab-command)
+ ("C-m" . newline-and-indent)
+ ("C-t" . other-window)
+ ("C-z" . undo)
+ ("C-x C-b" . buffer-menu))
+(define-key input-decode-map (kbd "C-h") (kbd "DEL"))
+
+(mykie:global-set-key "C-w"
+  :default (delete-region (point) (progn (backward-word) (point)))
+  :region kill-region)
+(mykie:global-set-key "C-x C-c"
+  :default (message "Need C-u")
+  :C-u save-buffers-kill-terminal)
+(mykie:global-set-key "C-x C-f"
+  :default ido-find-file
+  :C-u find-file-from-startup-directory)
+(mykie:global-set-key "C-x C-z"
+  :default (message "Need C-u")
+  :C-u suspend-frame)
+(mykie:global-set-key "M-%"
+  :default query-replace
+  :C-u query-replace-regexp)
 
 
 ;;;
@@ -216,8 +216,8 @@
              t
            '(require-snippet-condition . anywhere)))
   (yas-global-mode)
-  (define-key yas-minor-mode-map (kbd "TAB") nil)
-  (define-key yas-minor-mode-map (kbd "SPC") yas-maybe-expand))
+  (unbind-key "TAB" yas-minor-mode-map)
+  (bind-key "SPC" yas-maybe-expand yas-minor-mode-map))
 
 (use-package abbrev
   :diminish abbrev-mode)
@@ -273,7 +273,7 @@
             `(progn
                (let ((hydra-fun (defhydra ,funname (:body-pre ,head-command) ,@heads)))
                  (hydra-set-property ',funname :verbosity 0)
-                 (global-set-key (kbd ,binding) hydra-fun))))
+                 (bind-key ,binding hydra-fun))))
           )
         heads)
      nil))
@@ -289,6 +289,7 @@
                                   (:body-pre (multiple-cursor-mode 1)))
   ("a" mc/mark-all-like-this "all")
   ("w" mc/mark-all-dwim "dwim")
+  ("l" mc/edit-lines "lines")
   ("p" mc/mark-previous-like-this "mark prev")
   ("n" mc/mark-next-like-this "mark next")
   ("P" mc/skip-to-previous-like-this "skip to prev")
