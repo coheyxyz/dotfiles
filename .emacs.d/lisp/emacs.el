@@ -252,6 +252,10 @@
 (use-package multiple-cursors
   :ensure t)
 
+(use-package rainbow-delimiters
+  :ensure t
+  :hook (prog-mode . rainbow-delimiters-mode-enable))
+
 
 ;;;
 ;;; hydra
