@@ -205,6 +205,7 @@
   :ensure t
   :diminish yas-minor-mode
   :after auto-complete-config
+  :config
   (setq-default ac-sources (cons 'ac-source-yasnippet ac-sources))
   (setq yas-buffer-local-condition
         '(if (= (point)
@@ -247,6 +248,55 @@
 (use-package subword
   :diminish superword-mode
   :commands superword-mode)
+
+(use-package multiple-cursors
+  :ensure t)
+
+
+;;;
+;;; hydra
+;;;
+(use-package hydra
+  :ensure t
+  :demand t)
+
+(defmacro defhydra-multi (hydra-name binding-prefix &rest heads)
+  `(progn
+     ,@(mapcar
+        (lambda (head)
+          (let* ((head-binding (car head))
+                 (head-command (cadr head))
+                 (funname (intern (format "%s-%s" hydra-name head-binding)))
+                 (binding (concat binding-prefix head-binding)))
+            (if (symbolp head-command)
+                (setq head-command (list head-command)))
+            `(progn
+               (let ((hydra-fun (defhydra ,funname (:body-pre ,head-command) ,@heads)))
+                 (hydra-set-property ',funname :verbosity 0)
+                 (global-set-key (kbd ,binding) hydra-fun))))
+          )
+        heads)
+     nil))
+
+(defhydra-multi hydra-cursor-move "M-"
+  ("{" backward-paragraph)
+  ("}" forward-paragraph)
+  ("<" beginning-of-buffer)
+  (">" end-of-buffer))
+
+(defhydra hydra-multiple-cursors (global-map
+                                  "M-g m"
+                                  (:body-pre (multiple-cursor-mode 1)))
+  ("a" mc/mark-all-like-this "all")
+  ("w" mc/mark-all-dwim "dwim")
+  ("p" mc/mark-previous-like-this "mark prev")
+  ("n" mc/mark-next-like-this "mark next")
+  ("P" mc/skip-to-previous-like-this "skip to prev")
+  ("N" mc/skip-to-next-like-this "skip to next")
+  ("d" mc/unmark-next-like-this "unmark next")
+  ("D" mc/unmark-previous-like-this "unmark prev")
+  ("TAB" mc/cycle-forward nil)
+  ("<backtab>" mc/cycle-backward nil))
 
 
 ;;;
