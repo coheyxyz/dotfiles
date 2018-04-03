@@ -49,18 +49,18 @@
         (move-beginning-of-line 1))))
 
 (defvar startup-directory default-directory)
+(defvar find-file-command 'counsel-find-file)
 (defun find-file-from-startup-directory ()
   (interactive)
   (let ((default-directory startup-directory))
-    (call-interactively 'ido-find-file)))
+    (call-interactively find-file-command)))
 
 (bind-keys
  ("C-a" . move-bol-or-indent)
  ("C-i" . indent-for-tab-command)
  ("C-m" . newline-and-indent)
  ("C-t" . other-window)
- ("C-z" . undo)
- ("C-x C-b" . buffer-menu))
+ ("C-z" . undo))
 (define-key input-decode-map (kbd "C-h") (kbd "DEL"))
 
 (mykie:global-set-key "C-w"
@@ -70,7 +70,7 @@
   :default (message "Need C-u")
   :C-u save-buffers-kill-terminal)
 (mykie:global-set-key "C-x C-f"
-  :default ido-find-file
+  :default (call-interactively find-file-command)
   :C-u find-file-from-startup-directory)
 (mykie:global-set-key "C-x C-z"
   :default (message "Need C-u")
@@ -118,14 +118,8 @@
   (setq hl-line-face 'underline)
   :hook (after-init . global-hl-line-mode))
 
-(use-package ido
-  :config
-  (setq ido-everywhere t)
-  :hook (after-init . ido-mode))
-
 (use-package saveplace
-  :hook (after-init . save-place-mode)
-  )
+  :hook (after-init . save-place-mode))
 
 (use-package recentf
   :config
@@ -253,6 +247,10 @@
   :ensure
   :hook (prog-mode . rainbow-delimiters-mode-enable))
 
+(use-package smex
+  :ensure t
+  :commands smex)
+
 
 ;;;
 ;;; hydra
@@ -301,23 +299,38 @@
 
 
 ;;;
-;;; helm
+;;; ivy
 ;;;
-(use-package helm
+(use-package ivy
   :ensure
   :config
-  (setq helm-mini-default-sources '(helm-source-buffers-list
-                                    helm-source-recentf))
-  (if window-system
-      (set-face-foreground 'helm-selection "white"))
-  :bind (("C-_" . helm-mini)
-         ("C-/" . helm-mini)
-         ("M-/" . helm-resume)
-         ("C-c i" . helm-imenu)
-         ("C-c o" . helm-occur)
-         ("M-x" . helm-M-x)
-         ("M-y" . helm-show-kill-ring))
-  :custom-face (helm-selection ((t (:background "navy")))))
+  (setq ivy-height 20
+        ivy-use-virtual-buffers t
+        ivy-virtual-abbreviate 'abbreviate
+        ivy-count-format "(%d/%d) "
+        ivy-initial-inputs-alist '())
+  :bind (:map ivy-minibuffer-map
+             ("M-<" . ivy-beginning-of-buffer)
+             ("M->" . ivy-end-of-buffer)
+             ("TAB" . ivy-dispatching-done))
+  :hook (after-init . ivy-mode))
+
+(use-package counsel
+  :ensure
+  :config (setq counsel-yank-pop-height 20
+                counsel-yank-pop-truncate-radius 5)
+  :bind (:map counsel-mode-map
+              ("M-y" . counsel-yank-pop)
+              ("C-c i" . counsel-imenu))
+  :hook (after-init . counsel-mode))
+
+(use-package ivy-rich
+  :ensure
+  :after ivy
+  :config
+  (ivy-set-display-transformer 'ivy-switch-buffer
+                                       'ivy-rich-switch-buffer-transformer)
+  (setq ivy-rich-path-style 'abbrev))
 
 
 ;;;
@@ -409,7 +422,7 @@
   :config
   (setq-default python-indent-offset 2)
   :hook (python-mode . (lambda ()
-                         (setq ido-ignore-files (cons "__pycache__" ido-ignore-files)))))
+                         (setq counsel-find-file-ignore-regexp "__pycache__"))))
 
 
 ;;;
@@ -447,7 +460,7 @@
   :config (setq gofmt-command "goimports")
   :hook ((before-save . gofmt-before-save)
          (python-mode . (lambda ()
-                          (setq ido-ignore-files (cons "\\.test\\'" ido-ignore-files))))))
+                          (setq counsel-find-file-ignore-regexp "\\.test\\'")))))
 (use-package markdown-mode
   :ensure
   :mode "\\.md\\'")
