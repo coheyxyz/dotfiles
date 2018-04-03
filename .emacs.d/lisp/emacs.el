@@ -251,6 +251,9 @@
   :ensure t
   :commands smex)
 
+(use-package color-moccur
+  :ensure t)
+
 
 ;;;
 ;;; hydra
@@ -309,10 +312,13 @@
         ivy-virtual-abbreviate 'abbreviate
         ivy-count-format "(%d/%d) "
         ivy-initial-inputs-alist '())
-  :bind (:map ivy-minibuffer-map
-             ("M-<" . ivy-beginning-of-buffer)
-             ("M->" . ivy-end-of-buffer)
-             ("TAB" . ivy-dispatching-done))
+  :bind (("C-_" . ivy-switch-buffer)
+         ("C-/" . ivy-switch-buffer)
+         :map ivy-minibuffer-map
+         ("M-<" . ivy-beginning-of-buffer)
+         ("M->" . ivy-end-of-buffer)
+         ("TAB" . ivy-dispatching-done)
+         ("M-o" . ivy-occur))
   :hook (after-init . ivy-mode))
 
 (use-package counsel
