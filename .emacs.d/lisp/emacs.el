@@ -4,17 +4,14 @@
   (package-initialize))
 
 (use-package diminish
-  :ensure t
-  :demand t)
+  :ensure)
 
 (use-package key-chord
-  :ensure t
-  :demand t
+  :ensure
   :config (key-chord-mode 1))
 
 (use-package mykie
-  :ensure t
-  :demand t)
+  :ensure)
 
 
 ;;;
@@ -143,7 +140,7 @@
   :hook (after-init . which-function-mode))
 
 (use-package ace-jump-mode
-  :ensure t
+  :ensure
   :commands (ace-jump-word-mode ace-jump-mode-pop-mark)
   :init
   (mykie:global-set-key "C-\\"
@@ -154,7 +151,7 @@
   (setq ace-jump-mode-move-keys (loop for i from ?a to ?z collect i)))
 
 (use-package goto-chg
-  :ensure t
+  :ensure
   :commands (goto-last-change goto-last-change-reverse)
   :init
   (key-chord-define-global "'f" 'goto-last-change)
@@ -177,7 +174,7 @@
   :hook (after-init . smartparens-global-mode))
 
 (use-package popwin
-  :ensure t
+  :ensure
   :config
   (setq popwin:special-display-config
         '((" *auto-async-byte-compile*" :noselect t)
@@ -188,11 +185,11 @@
   :bind-keymap ("C-c p" . popwin:keymap))
 
 (use-package expand-region
-  :ensure t
+  :ensure
   :commands er/expand-region)
 
 (use-package sequential-command
-  :ensure t
+  :ensure
   :config
   (message "seq config")
   (eval (macroexpand `(define-sequential-command seq-expand
@@ -202,7 +199,7 @@
   :defines org-mode-map)
 
 (use-package yasnippet
-  :ensure t
+  :ensure
   :diminish yas-minor-mode
   :after auto-complete-config
   :config
@@ -223,7 +220,7 @@
   :diminish abbrev-mode)
 
 (use-package flycheck
-  :ensure t
+  :ensure
   :diminish
   :config
   (setq flycheck-display-errors-delay 0.3)
@@ -232,7 +229,7 @@
   :custom-face (flycheck-error ((t (:foreground "red")))))
 
 (use-package git-gutter
-  :ensure t
+  :ensure
   :diminish
   :config
   (setq git-gutter:handled-backends '(git hg))
@@ -241,7 +238,7 @@
          ("C-x n" . git-gutter:next-hunk)))
 
 (use-package open-junk-file
-  :ensure t
+  :ensure
   :commands open-junk-file
   :config (setq open-junk-file-format "~/junk/%Y%m%d-%H%M%S."))
 
@@ -250,10 +247,10 @@
   :commands superword-mode)
 
 (use-package multiple-cursors
-  :ensure t)
+  :ensure)
 
 (use-package rainbow-delimiters
-  :ensure t
+  :ensure
   :hook (prog-mode . rainbow-delimiters-mode-enable))
 
 
@@ -261,8 +258,7 @@
 ;;; hydra
 ;;;
 (use-package hydra
-  :ensure t
-  :demand t)
+  :ensure)
 
 (defmacro defhydra-multi (hydra-name binding-prefix &rest heads)
   `(progn
@@ -308,7 +304,7 @@
 ;;; helm
 ;;;
 (use-package helm
-  :ensure t
+  :ensure
   :config
   (setq helm-mini-default-sources '(helm-source-buffers-list
                                     helm-source-recentf))
@@ -334,19 +330,19 @@
           (lambda () (superword-mode)))
 
 (use-package auto-async-byte-compile
-  :ensure t
+  :ensure
   :hook (emacs-lisp-mode . enable-auto-async-byte-compile-mode))
 
 (use-package eldoc
   :diminish
   :commands eldoc-mode
-  :config (setq eldoc-idle-delay 0.2)
+  :config (setq eldoc-idle-delay 0.1)
   :hook ((emacs-lisp-mode . eldoc-mode)
          (lisp-interaction-mode . eldoc-mode)
          (ielm-mode . eldoc-mode)))
 
 (use-package paredit
-  :ensure t
+  :ensure
   :diminish
   :hook ((emacs-lisp-mode . enable-paredit-mode)
          (lisp-interacton-mode . enable-paredit-mode))
@@ -364,7 +360,7 @@
     (add-to-list 'c-offsets-alist sc)))
 
 (use-package php-mode
-  :ensure t
+  :ensure
   :mode "\\.php\\'"
   :interpreter "php"
   :config
@@ -385,12 +381,12 @@
                        (superword-mode)))))
 
 (use-package php-eldoc
-  :ensure t
+  :ensure
   :config
   ;; ( triggers eldoc immediately
   (eval-after-load 'eldoc
     '(eldoc-add-command "autopair-insert-opening"))
-  :hook ((php-mode . eldoc-mode)))
+  :hook (php-mode . eldoc-mode))
 
 
 ;;;
@@ -403,7 +399,7 @@
   (setq ruby-insert-encoding-magic-comment nil
         ruby-deep-indent-paren-style nil)
   (use-package ruby-end
-    :ensure t))
+    :ensure))
 
 
 ;;;
@@ -412,15 +408,15 @@
 (use-package python
   :config
   (setq-default python-indent-offset 2)
-  :hook ((python-mode . (lambda ()
-                          (setq ido-ignore-files (cons "__pycache__" ido-ignore-files))))))
+  :hook (python-mode . (lambda ()
+                         (setq ido-ignore-files (cons "__pycache__" ido-ignore-files)))))
 
 
 ;;;
 ;;; misc
 ;;;
 (use-package web-mode
-  :ensure t
+  :ensure
   :mode "\\.html\\'"
   :config
   (setq web-mode-script-padding 2
@@ -446,28 +442,27 @@
   :config (setq js-indent-level 2))
 
 (use-package go-mode
-  :ensure t
+  :ensure
   :mode "\\.go\\'"
   :config (setq gofmt-command "goimports")
   :hook ((before-save . gofmt-before-save)
          (python-mode . (lambda ()
                           (setq ido-ignore-files (cons "\\.test\\'" ido-ignore-files))))))
-
 (use-package markdown-mode
-  :ensure t
+  :ensure
   :mode "\\.md\\'")
 
 (use-package scss-mode
-  :ensure t
+  :ensure
   :mode "\\.scss\\'"
   :config (setq css-indent-offset 2))
 
 (use-package yaml-mode
-  :ensure t
+  :ensure
   :mode "\\.yml\\'")
 
 (use-package sh-script
-  :ensure t
+  :ensure
   :mode "\\.sh\\'"
   :config (setq sh-basic-offset 2
                 sh-indentation 2))
