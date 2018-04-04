@@ -319,6 +319,9 @@
          ("M->" . ivy-end-of-buffer)
          ("TAB" . ivy-dispatching-done)
          ("M-o" . ivy-occur))
+  :custom-face
+  (ivy-current-match ((t (:background "blue"))))
+  (ivy-highlight-face ((t (:bold t :background nil))))
   :hook (after-init . ivy-mode))
 
 (use-package counsel
