@@ -385,6 +385,7 @@
                     (append `(,name) `(,exp) rest)))
                 php-imenu-generic-expression))
   :hook ((php-mode . (lambda ()
+                       (c-set-offset 'topmost-intro-cont 0)
                        (c-set-offset 'statement-cont '+)
                        (modify-syntax-entry ?< ".")
                        (modify-syntax-entry ?> ".")
