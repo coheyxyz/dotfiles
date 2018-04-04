@@ -369,11 +369,6 @@
 ;;;
 ;;; php
 ;;;
-(defun php-mode-do-not-align-arrows ()
-  (let* ((sc (assoc 'statement-cont c-offsets-alist))
-         (sc (delq 'c-lineup-cascaded-calls sc)))
-    (add-to-list 'c-offsets-alist sc)))
-
 (use-package php-mode
   :ensure
   :mode "\\.php\\'"
@@ -390,7 +385,7 @@
                     (append `(,name) `(,exp) rest)))
                 php-imenu-generic-expression))
   :hook ((php-mode . (lambda ()
-                       (php-mode-do-not-align-arrows)
+                       (c-set-offset 'statement-cont '+)
                        (modify-syntax-entry ?< ".")
                        (modify-syntax-entry ?> ".")
                        (superword-mode)))))
@@ -466,6 +461,10 @@
 (use-package markdown-mode
   :ensure
   :mode "\\.md\\'")
+
+(use-package css-mode
+  :mode "\\.css\\'"
+  :config (setq css-indent-offset 2))
 
 (use-package scss-mode
   :ensure
