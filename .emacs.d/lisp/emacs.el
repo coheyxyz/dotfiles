@@ -106,13 +106,6 @@
 ;;; packages
 ;;;
 
-(use-package cua-base
-  :config
-  (setq cua-enable-cua-keys nil)
-  :hook (after-init . cua-mode)
-  :bind (("C-SPC" . cua-set-mark)
-         ("M-SPC" . cua-set-rectangle-mark)))
-
 (use-package hl-line
   :config
   (setq hl-line-face 'underline)
@@ -187,7 +180,7 @@
   :config
   (message "seq config")
   (eval (macroexpand `(define-sequential-command seq-expand
-                        cua-set-mark ,@(make-list 100 'er/expand-region))))
+                        set-mark-command ,@(make-list 100 'er/expand-region))))
   :bind (("C-@" . seq-expand)
          ("C-SPC" . seq-expand))
   :defines org-mode-map)
