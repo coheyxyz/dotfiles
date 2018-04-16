@@ -304,7 +304,8 @@
         ivy-use-virtual-buffers t
         ivy-virtual-abbreviate 'abbreviate
         ivy-count-format "(%d/%d) "
-        ivy-initial-inputs-alist '())
+        ivy-initial-inputs-alist '()
+        ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
   :bind (("C-_" . ivy-switch-buffer)
          ("C-/" . ivy-switch-buffer)
          :map ivy-minibuffer-map
