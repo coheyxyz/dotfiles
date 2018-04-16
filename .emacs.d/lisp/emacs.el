@@ -374,21 +374,10 @@
   :mode "\\.php\\'"
   :interpreter "php"
   :config
-  (setq php-imenu-generic-expression
-        (mapcar (lambda (lst)
-                  (let ((name (car lst))
-                        (exp (cadr lst))
-                        (rest (cddr lst)))
-                    (setq exp (replace-regexp-in-string "function" "\\(?:async\\s-+\\)?function" exp t t))
-                    (if (string-match "function" exp)
-                        (setq exp exp))
-                    (append `(,name) `(,exp) rest)))
-                php-imenu-generic-expression))
+
   :hook ((php-mode . (lambda ()
                        (c-set-offset 'topmost-intro-cont 0)
                        (c-set-offset 'statement-cont '+)
-                       (modify-syntax-entry ?< ".")
-                       (modify-syntax-entry ?> ".")
                        (superword-mode)))))
 
 (use-package php-eldoc
