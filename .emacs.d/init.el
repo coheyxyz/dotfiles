@@ -7,7 +7,8 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(load-file (locate-user-emacs-file "lisp/emacs.el"))
+(add-to-list 'load-path (locate-user-emacs-file "lisp"));
+(load "emacs")
 
 (byte-recompile-file (locate-user-emacs-file "init.el") nil 0)
 (byte-recompile-directory (locate-user-emacs-file "lisp") 0)

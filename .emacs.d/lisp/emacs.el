@@ -1,7 +1,9 @@
+(require 'package)
+(package-initialize)
+(require 'bind-key)
+
 (eval-when-compile
-  (require 'package)
-  (require 'use-package)
-  (package-initialize))
+  (require 'use-package))
 
 (use-package diminish
   :ensure)
@@ -99,7 +101,7 @@
 (menu-bar-mode 0)
 (if (fboundp 'tool-bar-mode)
     (tool-bar-mode 0))
-(load-file (locate-user-emacs-file "lisp/color-theme.el"))
+(load "my-color-theme")
 
 
 ;;;
