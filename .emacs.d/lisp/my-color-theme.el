@@ -1,3 +1,9 @@
+(require 'package)
+(package-initialize)
+
+(eval-when-compile
+  (require 'use-package))
+
 (defun my-color-theme-emacs-nw ()
   "Follow emacs21's color-theme, with -nw getting 100% compatibility.
 
