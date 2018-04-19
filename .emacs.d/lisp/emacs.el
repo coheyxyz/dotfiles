@@ -243,11 +243,16 @@
   :hook (prog-mode . rainbow-delimiters-mode-enable))
 
 (use-package smex
-  :ensure t
+  :ensure
   :commands smex)
 
 (use-package color-moccur
-  :ensure t)
+  :ensure)
+
+(use-package atomic-chrome
+  :ensure
+  :if window-system
+  :config (atomic-chrome-start-server))
 
 
 ;;;
