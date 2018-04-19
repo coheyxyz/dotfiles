@@ -268,7 +268,9 @@
           (let* ((head-binding (car head))
                  (head-command (cadr head))
                  (funname (intern (format "%s-%s" hydra-name head-binding)))
-                 (binding (concat binding-prefix head-binding)))
+                 (binding (concat binding-prefix
+                                  (and (not (string-suffix-p "-" binding-prefix)) " ")
+                                  head-binding)))
             (if (symbolp head-command)
                 (setq head-command (list head-command)))
             `(progn
@@ -278,6 +280,10 @@
           )
         heads)
      nil))
+
+(defhydra-multi hydra-page-move "C-x"
+  ("[" backward-page)
+  ("]" forward-page))
 
 (defhydra-multi hydra-cursor-move "M-"
   ("{" backward-paragraph)
