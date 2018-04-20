@@ -261,35 +261,21 @@
 (use-package hydra
   :ensure)
 
-(defmacro defhydra-multi (hydra-name binding-prefix &rest heads)
-  `(progn
-     ,@(mapcar
-        (lambda (head)
-          (let* ((head-binding (car head))
-                 (head-command (cadr head))
-                 (funname (intern (format "%s-%s" hydra-name head-binding)))
-                 (binding (concat binding-prefix
-                                  (and (not (string-suffix-p "-" binding-prefix)) " ")
-                                  head-binding)))
-            (if (symbolp head-command)
-                (setq head-command (list head-command)))
-            `(progn
-               (let ((hydra-fun (defhydra ,funname (:body-pre ,head-command) ,@heads)))
-                 (hydra-set-property ',funname :verbosity 0)
-                 (bind-key ,binding hydra-fun))))
-          )
-        heads)
-     nil))
-
-(defhydra-multi hydra-page-move "C-x"
+(defhydra hydra-page-move ()
   ("[" backward-page)
   ("]" forward-page))
+(bind-keys ("C-x [" . hydra-page-move/backward-page)
+           ("C-x ]" . hydra-page-move/forward-page))
 
-(defhydra-multi hydra-cursor-move "M-"
+(defhydra hydra-cursor-move ()
   ("{" backward-paragraph)
   ("}" forward-paragraph)
   ("<" beginning-of-buffer)
   (">" end-of-buffer))
+(bind-keys ("M-{" . hydra-cursor-move/backward-paragraph)
+           ("M-}" . hydra-cursor-move/forward-paragraph)
+           ("M-<" . hydra-cursor-move/beginning-of-buffer)
+           ("M->" . hydra-cursor-move/end-of-buffer))
 
 (defhydra hydra-multiple-cursors (global-map
                                   "M-g m"
