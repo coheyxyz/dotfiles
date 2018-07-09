@@ -101,7 +101,7 @@
 (menu-bar-mode 0)
 (if (fboundp 'tool-bar-mode)
     (tool-bar-mode 0))
-(load "my-color-theme")
+(load "my-color-theme.el")
 
 
 ;;;
@@ -193,17 +193,7 @@
   :after auto-complete-config
   :config
   (setq-default ac-sources (cons 'ac-source-yasnippet ac-sources))
-  (setq yas-buffer-local-condition
-        '(if (= (point)
-                (save-excursion
-                  (back-to-indentation)
-                  (skip-syntax-forward "^ " (line-end-position))
-                  (point)))
-             t
-           '(require-snippet-condition . anywhere)))
-  (yas-global-mode)
-  (unbind-key "TAB" yas-minor-mode-map)
-  (bind-key "SPC" yas-maybe-expand yas-minor-mode-map))
+  (yas-global-mode))
 
 (use-package abbrev
   :diminish abbrev-mode)
@@ -253,6 +243,10 @@
   :ensure
   :if window-system
   :config (atomic-chrome-start-server))
+
+(use-package winner
+  :config (winner-mode)
+  :bind (("C-q" . winner-undo)))
 
 
 ;;;
@@ -373,8 +367,6 @@
   :ensure
   :mode "\\.php\\'"
   :interpreter "php"
-  :config
-
   :hook ((php-mode . (lambda ()
                        (c-set-offset 'topmost-intro-cont 0)
                        (c-set-offset 'statement-cont '+)
@@ -410,6 +402,15 @@
   (setq-default python-indent-offset 2)
   :hook (python-mode . (lambda ()
                          (setq counsel-find-file-ignore-regexp "__pycache__"))))
+
+
+;;;
+;;; org-mode
+;;;
+(use-package org-mode
+  :mode "\\.org\\'"
+  :config
+  (setq org-startup-folded nil))
 
 
 ;;;
