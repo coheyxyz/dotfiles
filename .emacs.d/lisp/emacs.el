@@ -101,6 +101,7 @@
 (menu-bar-mode 0)
 (if (fboundp 'tool-bar-mode)
     (tool-bar-mode 0))
+(electric-pair-mode 1)
 (load "my-color-theme.el")
 
 
@@ -155,12 +156,6 @@
   (add-to-list 'ac-non-trigger-commands 'c-electric-delete-forward)
   (ac-config-default) ; set default ac-sources and allow to be overwritten
   )
-
-(use-package smartparens
-  :ensure smartparens
-  :diminish smartparens-mode
-  :config (require 'smartparens-config)
-  :hook (after-init . smartparens-global-mode))
 
 (use-package popwin
   :ensure
