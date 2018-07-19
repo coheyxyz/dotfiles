@@ -218,7 +218,7 @@
 
 (use-package subword
   :diminish superword-mode
-  :commands superword-mode)
+  :hook (after-init . global-superword-mode))
 
 (use-package multiple-cursors
   :ensure)
@@ -330,9 +330,6 @@
 (setq eval-expression-print-length 1200
       eval-expression-print-level 400)
 
-(add-hook 'emacs-lisp-mode-hook
-          (lambda () (superword-mode)))
-
 (use-package auto-async-byte-compile
   :ensure
   :hook (emacs-lisp-mode . enable-auto-async-byte-compile-mode))
@@ -364,8 +361,7 @@
   :interpreter "php"
   :hook ((php-mode . (lambda ()
                        (c-set-offset 'topmost-intro-cont 0)
-                       (c-set-offset 'statement-cont '+)
-                       (superword-mode)))))
+                       (c-set-offset 'statement-cont '+)))))
 
 (use-package php-eldoc
   :ensure
