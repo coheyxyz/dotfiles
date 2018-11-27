@@ -48,6 +48,7 @@ remapKey({'ctrl'}, 'w', keyCode('x', {'cmd'}))
 remapKey({'ctrl'}, 'y', keyCode('v', {'cmd'}))
 
 remapKey({'ctrl'}, 'h', keyCode('delete'))
+remapKey({'ctrl'}, 'm', keyCode('return'))
 
 remapKey({'ctrl'}, 'v', keyCode('pagedown'))
 remapKey({'alt'}, 'v', keyCode('pageup'))
