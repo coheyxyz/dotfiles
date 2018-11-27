@@ -42,6 +42,10 @@
               truncate-lines t
               bidi-display-reordering nil)
 
+(when window-system
+  (add-to-list 'default-frame-alist '(width . 145))
+  (add-to-list 'default-frame-alist '(height . 50)))
+
 ; Enable commands
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
