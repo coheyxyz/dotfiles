@@ -52,6 +52,7 @@ if which pyenv > /dev/null 2>&1; then eval "$(pyenv init -)"; fi
 if which direnv > /dev/null 2>&1; then eval "$(direnv hook zsh)"; [ -f .envrc ] && direnv reload; fi
 
 # load under ~/.zsh/
+[[ -s ~/.zsh.env.sh ]] && source ~/.zsh.env.sh
 ZSHHOME="${HOME}/.zsh"
 if [[ -d $ZSHHOME ]]; then
   for i in $ZSHHOME/*.sh; do
