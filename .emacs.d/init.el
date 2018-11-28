@@ -186,12 +186,10 @@
 (use-package sequential-command
   :ensure
   :config
-  (message "seq config")
   (eval (macroexpand `(define-sequential-command seq-expand
                         set-mark-command ,@(make-list 100 'er/expand-region))))
   :bind (("C-@" . seq-expand)
-         ("C-SPC" . seq-expand))
-  :defines org-mode-map)
+         ("C-SPC" . seq-expand)))
 
 (use-package yasnippet
   :ensure
