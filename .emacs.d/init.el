@@ -328,10 +328,10 @@
 
 (use-package ivy-rich
   :ensure
-  :after ivy
-  :hook (after-init . ivy-rich-mode)
+  :after (ivy counsel)
   :config
-  (setq ivy-rich-path-style 'abbrev))
+  (setq ivy-rich-path-style 'abbrev)
+  (ivy-rich-mode))
 
 
 ;;;
@@ -404,10 +404,13 @@
 ;;;
 ;;; org-mode
 ;;;
-(use-package org-mode
-  :mode "\\.org\\'"
+(use-package org
+  :mode ("\\.org\\'" . org-mode)
   :config
-  (setq org-startup-folded nil))
+  (setq org-directory "~/org"
+        org-startup-folded nil
+        org-src-fontify-natively t)
+  :bind (("C-c c" . org-capture)))
 
 
 ;;;
