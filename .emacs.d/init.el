@@ -159,22 +159,21 @@
   (key-chord-define-global "'f" 'goto-last-change)
   (key-chord-define-global "'b" 'goto-last-change-reverse))
 
-(use-package auto-complete-config
-  :ensure auto-complete
-  :diminish auto-complete-mode
+(use-package company
+  :ensure
+  :diminish company-mode
   :config
-  (setq ac-auto-start 2
-        ac-use-menu-map t)
-  (add-to-list 'ac-non-trigger-commands 'c-electric-delete-forward)
-  (ac-config-default) ; set default ac-sources and allow to be overwritten
-  )
+  (setq company-idle-delay .1)
+  :bind (:map company-active-map
+              ("C-n" . company-select-next)
+              ("C-p" . company-select-previous))
+  :hook (after-init . global-company-mode))
 
 (use-package popwin
   :ensure
   :config
   (setq popwin:special-display-config
         '(("*grep*")
-          ("*Gofmt Errors*" :noselect t)
           ("*compilation*" :noselect t)))
   :hook (after-init . popwin-mode)
   :bind-keymap ("C-c p" . popwin:keymap))
@@ -191,14 +190,6 @@
   :bind (("C-@" . seq-expand)
          ("C-SPC" . seq-expand)))
 
-(use-package yasnippet
-  :ensure
-  :diminish yas-minor-mode
-  :after auto-complete-config
-  :config
-  (setq-default ac-sources (cons 'ac-source-yasnippet ac-sources))
-  (yas-global-mode))
-
 (use-package abbrev
   :diminish abbrev-mode)
 
@@ -207,7 +198,9 @@
   :diminish
   :config
   (setq flycheck-display-errors-delay 0.3)
-  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc html-tidy))
+  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc html-tidy)
+                flycheck-highlighting-mode 'lines)
+  (add-to-list 'popwin:special-display-config '("*Flycheck error messages*" :noselect t))
   :hook (after-init . global-flycheck-mode)
   :custom-face (flycheck-error ((t (:foreground "red")))))
 
