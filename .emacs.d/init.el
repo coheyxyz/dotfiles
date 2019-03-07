@@ -324,6 +324,15 @@
   :after (ivy counsel)
   :config
   (setq ivy-rich-path-style 'abbrev)
+  (setq ivy-rich--display-transformers-list
+        (plist-put ivy-rich--display-transformers-list
+                   'ivy-switch-buffer
+                   '(:columns
+                     ((ivy-rich-candidate (:width 30))
+                      (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
+                      (ivy-rich-switch-buffer-path))
+                     :predicate
+                     (lambda (cand) (get-buffer cand)))))
   (ivy-rich-mode))
 
 
