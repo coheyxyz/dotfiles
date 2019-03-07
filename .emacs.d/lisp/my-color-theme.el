@@ -420,7 +420,8 @@ fonts."
      (widget-single-line-field-face ((t (:background "royalblue"))))
 
      (lazy-highlight-face ((t (:foreground "black"))))
-     (minibuffer-prompt ((t (:foreground "cyan")))))))
+     (minibuffer-prompt ((t (:foreground "cyan"))))
+     (flycheck-error ((t (:underline t)))))))
 
 (use-package color-theme
   :ensure t
