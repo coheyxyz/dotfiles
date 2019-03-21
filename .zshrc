@@ -23,6 +23,7 @@ alias g=git
 alias gs='git status'
 alias gd='git diff'
 alias gdc='git diff --cached'
+alias emacs='emacs -nw'
 
 # command history
 HISTFILE=~/.zsh_history
