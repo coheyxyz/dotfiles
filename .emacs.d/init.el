@@ -49,6 +49,7 @@
 ; Enable commands
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
 
 
 ;;;
@@ -114,7 +115,6 @@
 (if (fboundp 'tool-bar-mode)
     (tool-bar-mode 0))
 (electric-pair-mode 1)
-(load "my-color-theme")
 
 
 ;;;
@@ -244,6 +244,11 @@
 (use-package winner
   :config (winner-mode)
   :bind (("C-q" . winner-undo)))
+
+(use-package color-theme-solarized
+  :ensure
+  :unless window-system
+  :config (load-theme 'solarized t))
 
 
 ;;;
