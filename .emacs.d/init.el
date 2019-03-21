@@ -171,10 +171,6 @@
 
 (use-package popwin
   :ensure
-  :config
-  (setq popwin:special-display-config
-        '(("*grep*")
-          ("*compilation*" :noselect t)))
   :hook (after-init . popwin-mode)
   :bind-keymap ("C-c p" . popwin:keymap))
 
@@ -196,6 +192,7 @@
 (use-package flycheck
   :ensure
   :diminish
+  :after popwin
   :config
   (setq flycheck-display-errors-delay 0.3)
   (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc html-tidy)
@@ -334,7 +331,6 @@
                    'ivy-switch-buffer
                    '(:columns
                      ((ivy-rich-candidate (:width 30))
-                      (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
                       (ivy-rich-switch-buffer-path))
                      :predicate
                      (lambda (cand) (get-buffer cand)))))
