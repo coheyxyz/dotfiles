@@ -8,8 +8,9 @@
   (package-install 'use-package))
 
 (eval-when-compile
-  (require 'use-package)
-  (require 'bind-key))
+  (require 'use-package))
+
+(require 'bind-key)
 
 (use-package diminish
   :ensure)
@@ -171,6 +172,8 @@
 
 (use-package popwin
   :ensure
+  :config
+  (add-to-list 'popwin:special-display-config '(grep-mode))
   :hook (after-init . popwin-mode)
   :bind-keymap ("C-c p" . popwin:keymap))
 
@@ -285,6 +288,14 @@
   ("TAB" mc/cycle-forward nil)
   ("<backtab>" mc/cycle-backward nil))
 
+(defhydra hydra-comint-input ()
+  ("p" comint-previous-input)
+  ("n" comint-next-input))
+(use-package gud
+  :bind (:map gud-mode-map
+              ("M-p" . hydra-comint-input/comint-previous-input)
+              ("M-n" . hydra-comint-input/comint-next-input)))
+
 
 ;;;
 ;;; ivy
@@ -306,9 +317,7 @@
          ("M->" . ivy-end-of-buffer)
          ("TAB" . ivy-dispatching-done)
          ("M-o" . ivy-occur))
-  :custom-face
-  (ivy-current-match ((t (:background "blue"))))
-  (ivy-highlight-face ((t (:bold t :background nil))))
+  :custom-face (ivy-current-match ((t (:background "blue" :foreground "white"))))
   :hook (after-init . ivy-mode))
 
 (use-package counsel
@@ -334,7 +343,7 @@
                       (ivy-rich-switch-buffer-path))
                      :predicate
                      (lambda (cand) (get-buffer cand)))))
-  (ivy-rich-mode))
+  (ivy-rich-reload))
 
 
 ;;;
