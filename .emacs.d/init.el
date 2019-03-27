@@ -84,16 +84,16 @@
   :region kill-region)
 (mykie:global-set-key "C-x C-c"
   :default (message "Need C-u")
-  :C-u save-buffers-kill-terminal)
+  :C-u! save-buffers-kill-terminal)
 (mykie:global-set-key "C-x C-f"
   :default (call-interactively find-file-command)
-  :C-u find-file-from-startup-directory)
+  :C-u! find-file-from-startup-directory)
 (mykie:global-set-key "C-x C-z"
   :default (message "Need C-u")
-  :C-u suspend-frame)
+  :C-u! suspend-frame)
 (mykie:global-set-key "M-%"
   :default query-replace
-  :C-u query-replace-regexp)
+  :C-u! query-replace-regexp)
 
 
 ;;;
@@ -107,15 +107,15 @@
 ;;; minor modes
 ;;;
 
-(line-number-mode 1)
-(column-number-mode 1)
-(show-paren-mode 1)
-(global-font-lock-mode 1)
-(transient-mark-mode 1)
+(line-number-mode)
+(column-number-mode)
+(show-paren-mode)
+(global-font-lock-mode)
+(transient-mark-mode)
 (menu-bar-mode 0)
 (if (fboundp 'tool-bar-mode)
     (tool-bar-mode 0))
-(electric-pair-mode 1)
+(electric-pair-mode)
 
 
 ;;;
@@ -144,11 +144,12 @@
 
 (use-package ace-jump-mode
   :ensure
+  :after mykie
   :commands (ace-jump-word-mode ace-jump-mode-pop-mark)
   :init
   (mykie:global-set-key "C-\\"
       :default ace-jump-word-mode
-      :C-u ace-jump-mode-pop-mark)
+      :C-u! ace-jump-mode-pop-mark)
   :config
   (setq ace-jump-word-mode-use-query-char nil)
   (setq ace-jump-mode-move-keys (loop for i from ?a to ?z collect i)))
@@ -275,7 +276,7 @@
 
 (defhydra hydra-multiple-cursors (global-map
                                   "M-g m"
-                                  (:body-pre (multiple-cursor-mode 1)))
+                                  (:body-pre (multiple-cursor-mode)))
   ("a" mc/mark-all-like-this "all")
   ("w" mc/mark-all-dwim "dwim")
   ("l" mc/edit-lines "lines")
@@ -363,11 +364,17 @@
 (use-package paredit
   :ensure
   :diminish
+  :after mykie
+  :config
+  (mykie:set-keys paredit-mode-map
+    "C-]"
+    :default paredit-forward-slurp-sexp
+    :C-u! paredit-backward-slurp-sexp
+    "M-]"
+    :default paredit-forward-barf-sexp
+    :C-u! paredit-backward-barf-sexp)
   :hook ((emacs-lisp-mode . enable-paredit-mode)
-         (lisp-interacton-mode . enable-paredit-mode))
-  :bind (:map paredit-mode-map
-              ("C-]" . paredit-forward-slurp-sexp)
-              ("M-]" . paredit-forward-barf-sexp)))
+         (lisp-interacton-mode . enable-paredit-mode)))
 
 
 ;;;
