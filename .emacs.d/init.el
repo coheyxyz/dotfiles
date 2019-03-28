@@ -35,7 +35,8 @@
       make-backup-files nil
       auto-save-default nil
       save-abbrevs nil
-      vc-handled-backends nil)
+      vc-handled-backends nil
+      custom-file "/dev/null")
 
 (setq-default tab-width 2
               indent-tabs-mode nil
@@ -250,6 +251,19 @@
   :ensure
   :unless window-system
   :config (load-theme 'solarized t))
+
+(use-package undo-tree
+  :ensure
+  :after popwin
+  :init
+  (setq undo-tree-map (make-sparse-keymap))
+  (bind-keys :map undo-tree-map
+             ("C-z" . undo-tree-undo)
+             ("C-c C-z" . undo-tree-redo)
+             ("C-x u" . undo-tree-visualize))
+  :config
+  (add-to-list 'popwin:special-display-config '(" *undo-tree*"))
+  (global-undo-tree-mode))
 
 
 ;;;
