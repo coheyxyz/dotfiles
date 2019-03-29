@@ -13,7 +13,10 @@
 (require 'bind-key)
 
 (use-package diminish
-  :ensure)
+  :ensure
+  :config
+  (diminish 'abbrev-mode)
+  (diminish 'isearch-mode))
 
 (use-package key-chord
   :ensure
@@ -191,9 +194,6 @@
   :bind (("C-@" . seq-expand)
          ("C-SPC" . seq-expand)))
 
-(use-package abbrev
-  :diminish abbrev-mode)
-
 (use-package flycheck
   :ensure
   :diminish
@@ -254,6 +254,7 @@
 
 (use-package undo-tree
   :ensure
+  :diminish undo-tree-mode
   :after popwin
   :init
   (setq undo-tree-map (make-sparse-keymap))
