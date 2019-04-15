@@ -129,22 +129,24 @@
 (use-package hl-line
   :config
   (setq hl-line-face 'underline)
-  :hook (after-init . global-hl-line-mode))
+  (global-hl-line-mode))
 
 (use-package saveplace
-  :hook (after-init . save-place-mode))
+  :config (save-place-mode))
 
 (use-package recentf
   :config
   (setq recentf-max-saved-items 10000)
-  (run-with-idle-timer 30 t 'recentf-save-list)
-  :hook (after-init . recentf-mode))
+  (run-with-idle-timer 60 t (lambda ()
+                              (let ((inhibit-message t))
+                                (recentf-save-list))))
+  (recentf-mode))
 
 (use-package uniquify
   :config (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
 
 (use-package which-func
-  :hook (after-init . which-function-mode))
+  :config (which-function-mode))
 
 (use-package ace-jump-mode
   :ensure
@@ -170,16 +172,16 @@
   :diminish company-mode
   :config
   (setq company-idle-delay .1)
+  (global-company-mode)
   :bind (:map company-active-map
               ("C-n" . company-select-next)
-              ("C-p" . company-select-previous))
-  :hook (after-init . global-company-mode))
+              ("C-p" . company-select-previous)))
 
 (use-package popwin
   :ensure
   :config
   (add-to-list 'popwin:special-display-config '(grep-mode))
-  :hook (after-init . popwin-mode)
+  (popwin-mode)
   :bind-keymap ("C-c p" . popwin:keymap))
 
 (use-package expand-region
@@ -203,7 +205,7 @@
   (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc html-tidy)
                 flycheck-highlighting-mode 'lines)
   (add-to-list 'popwin:special-display-config '("*Flycheck error messages*" :noselect t))
-  :hook (after-init . global-flycheck-mode)
+  (global-flycheck-mode)
   :custom-face (flycheck-error ((t (:foreground "red")))))
 
 (use-package git-gutter
@@ -211,7 +213,7 @@
   :diminish
   :config
   (setq git-gutter:handled-backends '(git hg))
-  :hook (after-init . global-git-gutter-mode)
+  (global-git-gutter-mode)
   :bind (("C-x p" . git-gutter:previous-hunk)
          ("C-x n" . git-gutter:next-hunk)))
 
@@ -222,7 +224,7 @@
 
 (use-package subword
   :diminish superword-mode
-  :hook (after-init . global-superword-mode))
+  :config (global-superword-mode))
 
 (use-package multiple-cursors
   :ensure)
@@ -291,7 +293,7 @@
 
 (defhydra hydra-multiple-cursors (global-map
                                   "M-g m"
-                                  (:body-pre (multiple-cursor-mode)))
+                                  :pre (multiple-cursor-mode))
   ("a" mc/mark-all-like-this "all")
   ("w" mc/mark-all-dwim "dwim")
   ("l" mc/edit-lines "lines")
@@ -326,6 +328,7 @@
         ivy-count-format "(%d/%d) "
         ivy-initial-inputs-alist '()
         ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
+  (ivy-mode)
   :bind (("C-_" . ivy-switch-buffer)
          ("C-/" . ivy-switch-buffer)
          :map ivy-minibuffer-map
@@ -333,18 +336,18 @@
          ("M->" . ivy-end-of-buffer)
          ("TAB" . ivy-dispatching-done)
          ("M-o" . ivy-occur))
-  :custom-face (ivy-current-match ((t (:background "blue" :foreground "white"))))
-  :hook (after-init . ivy-mode))
+  :custom-face (ivy-current-match ((t (:background "blue" :foreground "white")))))
 
 (use-package counsel
   :ensure
   :diminish
-  :config (setq counsel-yank-pop-height 20
-                counsel-yank-pop-truncate-radius 5)
+  :config
+  (setq counsel-yank-pop-height 20
+        counsel-yank-pop-truncate-radius 5)
+  (counsel-mode)
   :bind (:map counsel-mode-map
               ("M-y" . counsel-yank-pop)
-              ("C-c i" . counsel-imenu))
-  :hook (after-init . counsel-mode))
+              ("C-c i" . counsel-imenu)))
 
 (use-package ivy-rich
   :ensure
