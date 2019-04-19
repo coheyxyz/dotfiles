@@ -345,9 +345,8 @@
   (setq counsel-yank-pop-height 20
         counsel-yank-pop-truncate-radius 5)
   (counsel-mode)
-  :bind (:map counsel-mode-map
-              ("M-y" . counsel-yank-pop)
-              ("C-c i" . counsel-imenu)))
+  :bind (("M-y" . counsel-yank-pop)
+         ("C-c i" . counsel-imenu)))
 
 (use-package ivy-rich
   :ensure
