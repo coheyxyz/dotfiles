@@ -170,6 +170,7 @@
 (use-package company
   :ensure
   :diminish company-mode
+  :demand
   :config
   (setq company-idle-delay .1)
   (global-company-mode)
@@ -211,6 +212,7 @@
 (use-package git-gutter
   :ensure
   :diminish
+  :demand
   :config
   (setq git-gutter:handled-backends '(git hg))
   (global-git-gutter-mode)
