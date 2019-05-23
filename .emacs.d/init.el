@@ -172,7 +172,9 @@
   :diminish company-mode
   :demand
   :config
-  (setq company-idle-delay .1)
+  (setq company-idle-delay .1
+        company-dabbrev-downcase nil
+        company-dabbrev-ignore-case nil)
   (global-company-mode)
   :bind (:map company-active-map
               ("C-n" . company-select-next)
