@@ -297,7 +297,7 @@
 
 (defhydra hydra-multiple-cursors (global-map
                                   "M-g m"
-                                  :pre (multiple-cursor-mode))
+                                  :pre (multiple-cursors-mode))
   ("a" mc/mark-all-like-this "all")
   ("w" mc/mark-all-dwim "dwim")
   ("l" mc/edit-lines "lines")

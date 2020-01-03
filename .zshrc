@@ -42,8 +42,6 @@ stty stop undef  # be able to search forward with ctrl-s
 
 # git completion
 # wget -O git-completion.sh 'http://git.kernel.org/cgit/git/git.git/plain/contrib/completion/git-completion.bash?id=01b97a4cb60723d18b437efdc474503d2a9dd384'
-autoload bashcompinit
-bashcompinit
 
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
 [[ -s ~/.cask ]] && export PATH="$HOME/.cask/bin:$PATH"

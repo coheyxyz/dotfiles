@@ -11,4 +11,3 @@ ln -sf ~/dotfiles/.zsh ~
 ln -sf ~/dotfiles/.zshrc ~
 
 ln -sf ~/dotfiles/.emacs.d/init.el ~/.emacs.d
-ln -sf ~/dotfiles/.emacs.d/lisp ~/.emacs.d
