@@ -256,7 +256,10 @@
 (use-package color-theme-solarized
   :ensure
   :unless window-system
-  :config (load-theme 'solarized t))
+  :config (load-theme 'solarized t)
+  :custom-face
+  (font-lock-comment-face ((t (:inherit default :italic nil :foreground "brightblue"))))
+  (font-lock-comment-delimiter-face ((t (:inherit default :italic nil :foreground "brightblue")))))
 
 (use-package undo-tree
   :ensure
@@ -474,9 +477,9 @@
   (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
   :custom-face
   (web-mode-function-call-face ((t :inherit default)))
-  (web-mode-html-tag-face ((t :inherit 'font-lock-keyword-face)))
-  (web-mode-html-attr-name-face ((t :inherit 'default)))
-  (web-mode-html-tag-bracket-face ((t :inherit 'default))))
+  (web-mode-html-tag-face ((t :inherit font-lock-keyword-face)))
+  (web-mode-html-attr-name-face ((t :inherit default)))
+  (web-mode-html-tag-bracket-face ((t :inherit default))))
 
 (use-package js
   :mode ("\\.js\\'" . js-mode)
