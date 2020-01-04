@@ -80,7 +80,8 @@
  ("C-i" . indent-for-tab-command)
  ("C-m" . newline-and-indent)
  ("C-t" . other-window)
- ("C-z" . undo))
+ ("C-z" . undo)
+ ("C-c i" . imenu))
 (define-key input-decode-map (kbd "C-h") (kbd "DEL"))
 
 (mykie:global-set-key "C-w"
@@ -327,6 +328,7 @@
 ;;;
 (use-package ivy
   :ensure
+  :demand
   :diminish
   :config
   (setq ivy-height 20
@@ -347,13 +349,12 @@
 
 (use-package counsel
   :ensure
+  :after ivy
   :diminish
   :config
   (setq counsel-yank-pop-height 20
         counsel-yank-pop-truncate-radius 5)
-  (counsel-mode)
-  :bind (("M-y" . counsel-yank-pop)
-         ("C-c i" . counsel-imenu)))
+  (counsel-mode))
 
 (use-package ivy-rich
   :ensure
@@ -364,11 +365,12 @@
         (plist-put ivy-rich--display-transformers-list
                    'ivy-switch-buffer
                    '(:columns
-                     ((ivy-rich-candidate (:width 30))
+                     ((ivy-rich-switch-buffer-indicators (:width 1 :align right))
+                      (ivy-rich-candidate (:width 30))
                       (ivy-rich-switch-buffer-path))
                      :predicate
                      (lambda (cand) (get-buffer cand)))))
-  (ivy-rich-reload))
+  (ivy-rich-mode))
 
 
 ;;;
