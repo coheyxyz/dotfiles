@@ -10,6 +10,7 @@
 (eval-when-compile
   (require 'use-package))
 
+(require 'seq)
 (require 'bind-key)
 
 (use-package diminish
@@ -40,6 +41,8 @@
       save-abbrevs nil
       vc-handled-backends nil
       custom-file "/dev/null")
+
+(setq-default mode-line-format (seq-remove (apply-partially #'eq 'mode-line-modes) mode-line-format))
 
 (setq-default tab-width 2
               indent-tabs-mode nil
